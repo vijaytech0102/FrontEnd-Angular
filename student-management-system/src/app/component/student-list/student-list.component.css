@@ -1,0 +1,168 @@
+.students-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.students-container h1 {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.students-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.student-card {
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  border-top: 3px solid #3498db;
+}
+
+.student-card.passed {
+  border-top-color: #27ae60;
+}
+
+.student-card.failed {
+  border-top-color: #e74c3c;
+}
+
+.student-card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ecf0f1;
+}
+
+.card-header h3 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.1rem;
+}
+
+.status-badge {
+  padding: 0.3rem 0.7rem;
+  border-radius: 3px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.status-badge.passed {
+  background-color: #d5f4e6;
+  color: #27ae60;
+}
+
+.status-badge.failed {
+  background-color: #fadbd8;
+  color: #e74c3c;
+}
+
+.card-body {
+  padding: 1rem 1.5rem;
+}
+
+.card-body p {
+  margin: 0.5rem 0;
+  color: #7f8c8d;
+  font-size: 0.9rem;
+}
+
+.card-marks {
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  min-height: 70px;
+  text-align: center;
+}
+
+.marks-value {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.marks-label {
+  font-size: 0.8rem;
+}
+
+.card-footer {
+  padding: 1rem 1.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.view-btn {
+  flex: 1;
+  padding: 0.6rem;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.view-btn:hover {
+  background-color: #2980b9;
+}
+
+.top-performer-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #f39c12;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 3px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.no-students {
+  text-align: center;
+  padding: 3rem;
+  color: #7f8c8d;
+}
+
+.no-students a {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.no-students a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .students-container {
+    padding: 1rem;
+  }
+
+  .students-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}

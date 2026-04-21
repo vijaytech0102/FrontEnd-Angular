@@ -209,7 +209,7 @@ const numbers = [1, 2, 3, 4, 44,6545,656];
 // Map: Transform each element
 const doubled = numbers.map(n => n * 2);
 console.log(doubled); // [2, 4, 6, 8, 10]
-
+ 
 
 // Filter: Keep elements matching condition
 const evens = numbers.filter(n => n % 2 === 0);

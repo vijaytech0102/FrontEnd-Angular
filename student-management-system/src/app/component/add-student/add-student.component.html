@@ -1,0 +1,84 @@
+<div class="add-student-container">
+  <h1>Add New Student</h1>
+  
+  <div class="form-wrapper">
+    <form (ngSubmit)="addStudent()" class="student-form">
+      <div class="form-group">
+        <label for="name">Student Name</label>
+        <input 
+          type="text" 
+          id="name" 
+          placeholder="Enter student name"
+          [(ngModel)]="newStudent.name"
+          name="name"
+          required
+          class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input 
+          type="email" 
+          id="email" 
+          placeholder="Enter email address"
+          [(ngModel)]="newStudent.email"
+          name="email"
+          required
+          class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input 
+          type="tel" 
+          id="phone" 
+          placeholder="Enter phone number"
+          [(ngModel)]="newStudent.phone"
+          name="phone"
+          required
+          class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="marks">Marks (0-100)</label>
+        <input 
+          type="number" 
+          id="marks" 
+          placeholder="Enter marks"
+          [(ngModel)]="newStudent.marks"
+          name="marks"
+          min="0"
+          max="100"
+          required
+          class="form-control">
+        <small class="form-hint">Marks must be between 0 and 100. Passing marks: 60</small>
+      </div>
+
+      <div class="marks-indicator" *ngIf="newStudent.marks !== null && newStudent.marks !== undefined">
+        <div class="indicator-bar">
+          <div class="indicator-fill" [style.width.%]="newStudent.marks" 
+               [ngClass]="getStatusClass()"></div>
+        </div>
+        <span class="status-text" [ngClass]="getStatusClass()">
+          {{ getStatusText() }}
+        </span>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary" [disabled]="!isFormValid()">
+          ➕ Add Student
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="resetForm()">
+          Clear Form
+        </button>
+        <button type="button" class="btn btn-tertiary" (click)="goBack()">
+          Back to List
+        </button>
+      </div>
+    </form>
+
+    <div *ngIf="successMessage" class="success-message">
+      {{ successMessage }}
+    </div>
+  </div>
+</div>

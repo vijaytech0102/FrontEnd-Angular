@@ -1,0 +1,56 @@
+<div class="detail-container">
+  <button class="back-btn" (click)="goBack()">← Back to List</button>
+  
+  <div *ngIf="student" class="detail-card" [ngClass]="student.status">
+    <div class="detail-header">
+      <h1>{{ student.name }}</h1>
+      <span class="status-badge" [class]="student.status">
+        {{ student.status | uppercase }}
+      </span>
+      <div *ngIf="isTopPerformer()" class="star-badge">
+        ⭐ TOP PERFORMER
+      </div>
+    </div>
+
+    <div class="detail-grid">
+      <div class="detail-section">
+        <h3>Contact Information</h3>
+        <div class="detail-item">
+          <label>Email:</label>
+          <p>{{ student.email }}</p>
+        </div>
+        <div class="detail-item">
+          <label>Phone:</label>
+          <p>{{ student.phone }}</p>
+        </div>
+      </div>
+
+      <div class="detail-section">
+        <h3>Academic Performance</h3>
+        <div class="marks-display" [ngStyle]="getMarksStyle()">
+          <div class="marks-info">
+            <span class="marks-number">{{ student.marks }}</span>
+            <span class="marks-out-of">/100</span>
+          </div>
+        </div>
+        <div class="performance-indicator">
+          <div class="bar-container">
+            <div class="bar-fill" [style.width.%]="student.marks"></div>
+          </div>
+          <p class="performance-text">{{ getPerformanceText() }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-actions">
+      <button class="btn btn-primary" (click)="editStudent()">Edit Student</button>
+      <button class="btn btn-secondary" (click)="goBack()">Back to List</button>
+    </div>
+  </div>
+
+  <div *ngIf="!student" class="not-found">
+    <h2>Student Not Found</h2>
+    <p>The student ID {{ studentId }} does not exist in the system.</p>
+    <button class="btn btn-primary" (click)="goBack()">Go Back</button>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+<div class="home-container">
+  <div class="welcome-section">
+    <h1>Welcome to Student Management System</h1>
+    <p>Manage and track student information efficiently</p>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <h3>{{ totalStudents }}</h3>
+      <p>Total Students</p>
+    </div>
+    <div class="stat-card passed">
+      <h3>{{ passedStudents }}</h3>
+      <p>Passed Students</p>
+    </div>
+    <div class="stat-card failed">
+      <h3>{{ failedStudents }}</h3>
+      <p>Failed Students</p>
+    </div>
+    <div class="stat-card top">
+      <h3>{{ topStudents }}</h3>
+      <p>Top Performers (85+)</p>
+    </div>
+  </div>
+
+  <div class="features-section">
+    <h2>Features</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <h4>📋 View Students</h4>
+        <p>View all students and their performance details</p>
+      </div>
+      <div class="feature-card">
+        <h4>👤 Student Details</h4>
+        <p>Get detailed information about each student</p>
+      </div>
+      <div class="feature-card">
+        <h4>➕ Add Students</h4>
+        <p>Add new students to the management system</p>
+      </div>
+      <div class="feature-card">
+        <h4>⭐ Top Performers</h4>
+        <p>Highlight students with excellent performance</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="quick-actions">
+    <button class="btn btn-primary" (click)="goToStudents()">View All Students</button>
+    <button class="btn btn-secondary" (click)="goToAddStudent()">Add New Student</button>
+  </div>
+</div>

@@ -83,22 +83,24 @@ console.log(mixedArray); // Output: [1, "Hello", true, { name: "Alice" }, [1, 2,
 mixedArray[5](); // Output: Function in array
 
 // famous interview problems in Arrays
-//  1. Two Sum
-// Given an array of integers, return indices of the two numbers such that they add up to a specific target.
+// 1. Two Sum
 function twoSum(nums, target) {
-    const map = new Map();
+    const numMap = new Map();
     for (let i = 0; i < nums.length; i++) {
         const complement = target - nums[i];
-        if (map.has(complement)) {
-            return [map.get(complement), i];
+        if (numMap.has(complement)) {
+            return [numMap.get(complement), i];
         }
-        map.set(nums[i], i);
+        numMap.set(nums[i], i);
     }
-    return null; // Return null if no solution is found
-}
+    return [];
+}   
+// dry run the code  
+// nums = [2, 7, 11, 15], target = 9
+// i = 0, numMap = {}, complement = 7, numMap does not have 7, numMap = {2: 0}
+// i = 1, numMap = {2: 0}, complement = 2, numMap has 2, return [0, 1] 
+// time complexity: O(n), space complexity: O(n)
 
-// dry run
-// 
 const nums = [2, 7, 11, 15];
 const target = 9;
 console.log(twoSum(nums, target)); // Output: [0, 1]

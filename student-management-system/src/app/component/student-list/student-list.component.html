@@ -1,0 +1,39 @@
+<div class="students-container">
+  <h1>All Students</h1>
+  
+  <div class="students-grid">
+    <div *ngFor="let student of students" 
+         class="student-card" 
+         [ngClass]="student.status"
+         (click)="viewDetails(student.id)">
+      <div class="card-header">
+        <h3>{{ student.name }}</h3>
+        <span class="status-badge" [class]="student.status">
+          {{ student.status | uppercase }}
+        </span>
+      </div>
+      
+      <div class="card-body">
+        <p><strong>Email:</strong> {{ student.email }}</p>
+        <p><strong>Phone:</strong> {{ student.phone }}</p>
+      </div>
+      
+      <div class="card-marks" [ngStyle]="getMarksStyle(student.marks)">
+        <span class="marks-value">{{ student.marks }}</span>
+        <span class="marks-label">Marks</span>
+      </div>
+      
+      <div class="card-footer">
+        <button class="view-btn" (click)="viewDetails(student.id)">View Details</button>
+      </div>
+      
+      <div *ngIf="isTopPerformer(student)" class="top-performer-badge">
+        ⭐ TOP PERFORMER
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="students.length === 0" class="no-students">
+    <p>No students found. <a routerLink="/add-student">Add a student</a></p>
+  </div>
+</div>

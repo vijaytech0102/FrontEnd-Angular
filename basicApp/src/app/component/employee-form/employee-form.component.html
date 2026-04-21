@@ -1,0 +1,161 @@
+ <div class="employee-form-container">
+  <div class="form-header">
+    <h1>{{ pageTitle }}</h1>
+  </div>
+
+  <div class="form-content">
+    <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+      <!-- Error Message -->
+      <div *ngIf="errorMessage" class="alert alert-error">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Success Message -->
+      <div *ngIf="submitted && employeeForm.valid" class="alert alert-success">
+        Employee {{ isEditMode ? 'updated' : 'added' }} successfully!
+      </div>
+
+      <div class="form-grid">
+        <!-- First Name -->
+        <div class="form-group">
+          <label for="firstName">First Name *</label>
+          <input
+            id="firstName"
+            type="text"
+            class="form-control"
+            [class.is-invalid]="isControlInvalid('firstName')"
+            formControlName="firstName"
+            placeholder="Enter first name"
+          />
+          <div *ngIf="isControlInvalid('firstName')" class="error-text">
+            {{ getErrorMessage('firstName') }}
+          </div>
+        </div>
+
+        <!-- Last Name -->
+        <div class="form-group">
+          <label for="lastName">Last Name *</label>
+          <input
+            id="lastName"
+            type="text"
+            class="form-control"
+            [class.is-invalid]="isControlInvalid('lastName')"
+            formControlName="lastName"
+            placeholder="Enter last name"
+          />
+          <div *ngIf="isControlInvalid('lastName')" class="error-text">
+            {{ getErrorMessage('lastName') }}
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input
+            id="email"
+            type="email"
+            class="form-control"
+            [class.is-invalid]="isControlInvalid('email')"
+            formControlName="email"
+            placeholder="Enter email address"
+          />
+          <div *ngIf="isControlInvalid('email')" class="error-text">
+            {{ getErrorMessage('email') }}
+          </div>
+        </div>
+
+        <!-- Phone -->
+        <div class="form-group">
+          <label for="phone">Phone *</label>
+          <input
+            id="phone"
+            type="tel"
+            class="form-control"
+            [class.is-invalid]="isControlInvalid('phone')"
+            formControlName="phone"
+            placeholder="Enter 10-digit phone number"
+          />
+          <div *ngIf="isControlInvalid('phone')" class="error-text">
+            {{ getErrorMessage('phone') }}
+          </div>
+        </div>
+
+        <!-- Department -->
+        <div class="form-group">
+          <label for="department">Department *</label>
+          <select
+            id="department"
+            class="form-control"
+            [class.is-invalid]="isControlInvalid('department')"
+            formControlName="department"
+          >
+            <option value="">Select Department</option>
+            <option *ngFor="let dept of departments" [value]="dept">{{ dept }}</option>
+          </select>
+          <div *ngIf="isControlInvalid('department')" class="error-text">
+            {{ getErrorMessage('department') }}
+          </div>
+        </div>
+
+        <!-- Position -->
+        <div class="form-group">
+          <label for="position">Position *</label>
+          <select
+            id="position"
+            class="form-control"
+            [class.is-invalid]="isControlInvalid('position')"
+            formControlName="position"
+          >
+            <option value="">Select Position</option>
+            <option *ngFor="let pos of positions" [value]="pos">{{ pos }}</option>
+          </select>
+          <div *ngIf="isControlInvalid('position')" class="error-text">
+            {{ getErrorMessage('position') }}
+          </div>
+        </div>
+
+        <!-- Salary -->
+        <div class="form-group">
+          <label for="salary">Salary *</label>
+          <input
+            id="salary"
+            type="number"
+            class="form-control"
+            [class.is-invalid]="isControlInvalid('salary')"
+            formControlName="salary"
+            placeholder="Enter salary"
+            min="0"
+          />
+          <div *ngIf="isControlInvalid('salary')" class="error-text">
+            {{ getErrorMessage('salary') }}
+          </div>
+        </div>
+
+        <!-- Date of Joining -->
+        <div class="form-group">
+          <label for="dateOfJoining">Date of Joining *</label>
+          <input
+            id="dateOfJoining"
+            type="date"
+            class="form-control"
+            [class.is-invalid]="isControlInvalid('dateOfJoining')"
+            formControlName="dateOfJoining"
+          />
+          <div *ngIf="isControlInvalid('dateOfJoining')" class="error-text">
+            {{ getErrorMessage('dateOfJoining') }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">
+          {{ submitButtonText }}
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="onCancel()">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

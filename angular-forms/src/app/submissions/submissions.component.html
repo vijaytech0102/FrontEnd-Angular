@@ -1,0 +1,332 @@
+<div class="form-section">
+  <div class="submissions-header">
+    <h2 class="form-title">📊 Form Submissions History</h2>
+    <button
+      class="btn btn-sm btn-danger"
+      (click)="clearAll()"
+      *ngIf="submissions.length > 0"
+    >
+      🗑️ Clear All
+    </button>
+  </div>
+
+  <!-- Empty State -->
+  <div class="alert alert-info" *ngIf="submissions.length === 0">
+    <p class="mb-0">
+      No form submissions yet. Start filling out forms and they will appear here!
+    </p>
+  </div>
+
+  <!-- Submissions Found -->
+  <div *ngIf="submissions.length > 0">
+    <!-- Filter Buttons -->
+    <div class="filter-buttons mb-4">
+      <button
+        class="btn"
+        [class.btn-primary]="selectedFilter === 'all'"
+        [class.btn-outline-secondary]="selectedFilter !== 'all'"
+        (click)="onFilterChange('all')"
+      >
+        All ({{ submissions.length }})
+      </button>
+      <button
+        class="btn"
+        [class.btn-primary]="selectedFilter === 'template-driven'"
+        [class.btn-outline-secondary]="selectedFilter !== 'template-driven'"
+        (click)="onFilterChange('template-driven')"
+      >
+        Template-Driven ({{ getTemplateFormsCount() }})
+      </button>
+      <button
+        class="btn"
+        [class.btn-primary]="selectedFilter === 'reactive'"
+        [class.btn-outline-secondary]="selectedFilter !== 'reactive'"
+        (click)="onFilterChange('reactive')"
+      >
+        Reactive ({{ getReactiveFormsCount() }})
+      </button>
+    </div>
+
+    <!-- Submissions Table -->
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Timestamp</th>
+            <th>Form Type</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let submission of filteredSubmissions; let i = index">
+            <td>{{ formatDate(submission.timestamp) }}</td>
+            <td>
+              <span class="badge" [ngClass]="getFormTypeBadge(submission.formType)">
+                {{ submission.formType === 'template-driven' ? '📋 Template-Driven' : '⚙️ Reactive' }}
+              </span>
+            </td>
+            <td>
+              <span class="badge" [ngClass]="getValidityBadge(submission.isValid)">
+                {{ submission.isValid ? '✓ Valid' : '✕ Invalid' }}
+              </span>
+            </td>
+            <td>
+              <button
+                class="btn btn-sm btn-outline-primary"
+                (click)="toggleExpand(i)"
+              >
+                {{ expandedIndex === i ? '▼ Hide Details' : '▶ Show Details' }}
+              </button>
+            </td>
+          </tr>
+
+          <!-- Expanded Details Row -->
+          <tr *ngIf="expandedIndex !== null && expandedIndex < filteredSubmissions.length">
+            <td colspan="4">
+              <div class="submission-details">
+                <h6>📋 Submitted Data:</h6>
+                <div class="data-display">
+                  <!-- Display data based on form type -->
+                  <div *ngIf="filteredSubmissions[expandedIndex].formType === 'template-driven'">
+                    <!-- Template-Driven Form Data -->
+                    <div class="data-item">
+                      <span class="data-label">Full Name:</span>
+                      <span class="data-value">
+                        {{ filteredSubmissions[expandedIndex].data.fullName }}
+                      </span>
+                    </div>
+                    <div class="data-item">
+                      <span class="data-label">Email:</span>
+                      <span class="data-value">
+                        {{ filteredSubmissions[expandedIndex].data.email }}
+                      </span>
+                    </div>
+                    <div class="data-item">
+                      <span class="data-label">Gender:</span>
+                      <span class="data-value">
+                        {{ filteredSubmissions[expandedIndex].data.gender }}
+                      </span>
+                    </div>
+                    <div class="data-item">
+                      <span class="data-label">Country:</span>
+                      <span class="data-value">
+                        {{ filteredSubmissions[expandedIndex].data.country }}
+                      </span>
+                    </div>
+                    <div class="data-item">
+                      <span class="data-label">Skills:</span>
+                      <span class="data-value">
+                        {{ filteredSubmissions[expandedIndex].data.skills.join(', ') || 'None' }}
+                      </span>
+                    </div>
+                  </div>
+
+                  <!-- Reactive Form Data -->
+                  <div *ngIf="filteredSubmissions[expandedIndex].formType === 'reactive'">
+                    <div *ngIf="filteredSubmissions[expandedIndex].data.email">
+                      <div class="data-item">
+                        <span class="data-label">Email:</span>
+                        <span class="data-value">
+                          {{ filteredSubmissions[expandedIndex].data.email }}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div *ngIf="filteredSubmissions[expandedIndex].data.name">
+                      <div class="data-item">
+                        <span class="data-label">Name:</span>
+                        <span class="data-value">
+                          {{ filteredSubmissions[expandedIndex].data.name }}
+                        </span>
+                      </div>
+                      <div class="data-item">
+                        <span class="data-label">Phone:</span>
+                        <span class="data-value">
+                          {{ filteredSubmissions[expandedIndex].data.phone }}
+                        </span>
+                      </div>
+                      <div class="data-item">
+                        <span class="data-label">Address:</span>
+                        <span class="data-value">
+                          {{ filteredSubmissions[expandedIndex].data.address.street }},
+                          {{ filteredSubmissions[expandedIndex].data.address.city }}
+                          {{ filteredSubmissions[expandedIndex].data.address.zipCode }}
+                        </span>
+                      </div>
+                      <div class="data-item">
+                        <span class="data-label">Skills:</span>
+                        <span class="data-value">
+                          {{ filteredSubmissions[expandedIndex].data.skills.join(', ') || 'None' }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Raw JSON Display -->
+                  <div class="raw-json-section">
+                    <h6>📄 Raw JSON:</h6>
+                    <pre><code>{{ filteredSubmissions[expandedIndex].data | json }}</code></pre>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Statistics -->
+    <div class="statistics mt-4">
+      <div class="stat-card">
+        <div class="stat-label">Total Submissions</div>
+        <div class="stat-value">{{ submissions.length }}</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Template-Driven</div>
+        <div class="stat-value">
+          {{ getTemplateFormsCount() }}
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Reactive</div>
+        <div class="stat-value">
+          {{ getReactiveFormsCount() }}
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Valid Forms</div>
+        <div class="stat-value">
+          {{ getValidFormsCount() }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .submissions-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .filter-buttons {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-buttons .btn {
+    border-radius: 6px;
+    font-weight: 600;
+  }
+
+  .submission-details {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 6px;
+    margin: 1rem 0;
+  }
+
+  .data-display {
+    margin-top: 1rem;
+  }
+
+  .data-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #e9ecef;
+  }
+
+  .data-item:last-child {
+    border-bottom: none;
+  }
+
+  .data-label {
+    font-weight: 600;
+    color: #495057;
+    min-width: 150px;
+  }
+
+  .data-value {
+    color: #333;
+    text-align: right;
+    word-break: break-word;
+  }
+
+  .raw-json-section {
+    margin-top: 1.5rem;
+    border-top: 1px solid #e9ecef;
+    padding-top: 1rem;
+  }
+
+  .raw-json-section h6 {
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+  }
+
+  .raw-json-section pre {
+    background: white;
+    padding: 1rem;
+    border-radius: 4px;
+    border: 1px solid #e9ecef;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
+  .statistics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+
+  .stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-left: 4px solid #667eea;
+  }
+
+  .stat-label {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #667eea;
+  }
+
+  @media (max-width: 768px) {
+    .submissions-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .submissions-header button {
+      width: 100%;
+    }
+
+    .data-item {
+      flex-direction: column;
+    }
+
+    .data-label {
+      margin-bottom: 0.25rem;
+    }
+
+    .data-value {
+      text-align: left;
+    }
+  }
+</style>

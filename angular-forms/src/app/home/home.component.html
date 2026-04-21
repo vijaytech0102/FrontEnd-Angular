@@ -1,0 +1,523 @@
+<div class="container">
+  <!-- Hero Section -->
+  <div class="hero-section mb-5">
+    <h1 class="display-4 fw-bold mb-3">🎓 Angular Forms Learning Guide</h1>
+    <p class="lead text-muted mb-4">
+      Master both Template-Driven and Reactive Forms with comprehensive examples,
+      best practices, and real-world patterns.
+    </p>
+    <div class="hero-buttons">
+      <a href="/template-driven" class="btn btn-primary btn-lg me-2">
+        Start with Template Forms
+      </a>
+      <a href="/reactive-login" class="btn btn-outline-primary btn-lg">
+        Learn Reactive Forms
+      </a>
+    </div>
+  </div>
+
+  <!-- Features Grid -->
+  <div class="row mb-5">
+    <div class="col-md-6 mb-4">
+      <div class="feature-card">
+        <div class="feature-icon">📋</div>
+        <h5>Template-Driven Forms</h5>
+        <p>
+          Learn the basics with directives like ngForm, ngModel, and built-in
+          validators. Perfect for simple forms and quick prototyping.
+        </p>
+        <a href="/template-driven" class="btn btn-sm btn-primary">
+          View Example →
+        </a>
+      </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+      <div class="feature-card">
+        <div class="feature-icon">⚙️</div>
+        <h5>Reactive Forms</h5>
+        <p>
+          Build powerful, scalable forms with FormBuilder, custom validators, and
+          async validators. Ideal for complex applications.
+        </p>
+        <a href="/reactive-login" class="btn btn-sm btn-primary">
+          View Example →
+        </a>
+      </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h5>Nested Forms & Arrays</h5>
+        <p>
+          Master advanced patterns with nested FormGroups and dynamic FormArrays.
+          Handle complex, hierarchical data structures.
+        </p>
+        <a href="/reactive-profile" class="btn btn-sm btn-primary">
+          View Example →
+        </a>
+      </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+      <div class="feature-card">
+        <div class="feature-icon">💾</div>
+        <h5>Local Storage & History</h5>
+        <p>
+          All form submissions are automatically saved to browser local storage.
+          View and manage your submission history.
+        </p>
+        <a href="/submissions" class="btn btn-sm btn-primary">
+          View Submissions →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Comparison Section -->
+  <div class="comparison-section mb-5">
+    <h3 class="mb-4">🔄 Template-Driven vs Reactive Forms</h3>
+
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Template-Driven</th>
+            <th>Reactive</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Setup</strong></td>
+            <td>Simple directives in template</td>
+            <td>FormBuilder in component</td>
+          </tr>
+          <tr>
+            <td><strong>Complexity</strong></td>
+            <td>Low - Best for simple forms</td>
+            <td>High - For complex forms</td>
+          </tr>
+          <tr>
+            <td><strong>Testability</strong></td>
+            <td>Harder to test</td>
+            <td>Easier to test</td>
+          </tr>
+          <tr>
+            <td><strong>Data Binding</strong></td>
+            <td>Two-way (ngModel)</td>
+            <td>One-way (programmatic)</td>
+          </tr>
+          <tr>
+            <td><strong>Dynamic Fields</strong></td>
+            <td>Difficult</td>
+            <td>Easy (FormArray)</td>
+          </tr>
+          <tr>
+            <td><strong>Async Validators</strong></td>
+            <td>Limited support</td>
+            <td>Full support</td>
+          </tr>
+          <tr>
+            <td><strong>Custom Validators</strong></td>
+            <td>Possible but limited</td>
+            <td>Full flexibility</td>
+          </tr>
+          <tr>
+            <td><strong>Performance</strong></td>
+            <td>Slower for large forms</td>
+            <td>Optimized for performance</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Key Concepts Section -->
+  <div class="concepts-section mb-5">
+    <h3 class="mb-4">🧠 Key Concepts You'll Learn</h3>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <div class="concept-list">
+          <h5>✅ Template-Driven Concepts</h5>
+          <ul>
+            <li>ngModel - Two-way data binding</li>
+            <li>ngForm - Form reference and control</li>
+            <li>Form validation states (touched, dirty, valid)</li>
+            <li>Built-in validators (required, email, minlength)</li>
+            <li>Error message handling</li>
+            <li>Form submission and reset</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <div class="concept-list">
+          <h5>✅ Reactive Forms Concepts</h5>
+          <ul>
+            <li>FormControl, FormGroup, FormArray</li>
+            <li>FormBuilder for easy creation</li>
+            <li>Reactive validators and custom validators</li>
+            <li>Async validators (API calls)</li>
+            <li>Form value changes (valueChanges, statusChanges)</li>
+            <li>Nested forms and dynamic fields</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Advanced Features Section -->
+  <div class="advanced-section mb-5">
+    <h3 class="mb-4">🚀 Advanced Features Implemented</h3>
+
+    <div class="features-list">
+      <div class="feature-item">
+        <span class="badge bg-success">✓</span>
+        <strong>Custom Validators:</strong> Phone number validation with pattern matching
+      </div>
+      <div class="feature-item">
+        <span class="badge bg-success">✓</span>
+        <strong>Async Validators:</strong> Email availability checking simulation
+      </div>
+      <div class="feature-item">
+        <span class="badge bg-success">✓</span>
+        <strong>Nested Forms:</strong> Address information grouped within profile
+      </div>
+      <div class="feature-item">
+        <span class="badge bg-success">✓</span>
+        <strong>Dynamic Fields:</strong> Add/remove skills using FormArray
+      </div>
+      <div class="feature-item">
+        <span class="badge bg-success">✓</span>
+        <strong>Local Storage:</strong> Auto-save all submissions
+      </div>
+      <div class="feature-item">
+        <span class="badge bg-success">✓</span>
+        <strong>Form State Tracking:</strong> Real-time validation feedback
+      </div>
+      <div class="feature-item">
+        <span class="badge bg-success">✓</span>
+        <strong>Error Handling:</strong> Comprehensive error messages
+      </div>
+      <div class="feature-item">
+        <span class="badge bg-success">✓</span>
+        <strong>Bootstrap Integration:</strong> Professional UI styling
+      </div>
+    </div>
+  </div>
+
+  <!-- Getting Started -->
+  <div class="getting-started">
+    <h3 class="mb-4">🚀 Getting Started</h3>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <strong>Start with Template-Driven Forms</strong>
+          <p>
+            Navigate to the
+            <a href="/template-driven">Template-Driven Form</a> example to learn
+            the basics of Angular forms using simple directives.
+          </p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <strong>Learn Reactive Forms with Login</strong>
+          <p>
+            Move to
+            <a href="/reactive-login">Reactive Login Form</a> to understand
+            FormBuilder, FormGroups, and async validators.
+          </p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <strong>Master Advanced Patterns</strong>
+          <p>
+            Check out the
+            <a href="/reactive-profile">Advanced Profile Form</a> with nested
+            groups and dynamic arrays.
+          </p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <strong>Review Submission History</strong>
+          <p>
+            Visit
+            <a href="/submissions">Submissions</a> to see all your form
+            submissions saved to local storage.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tips Section -->
+  <div class="tips-section bg-light p-4 rounded mb-5">
+    <h4 class="mb-3">💡 Pro Tips</h4>
+    <ul class="tips-list">
+      <li>
+        <strong>Template-Driven:</strong> Best for simple, quick forms. Two-way
+        binding makes development fast.
+      </li>
+      <li>
+        <strong>Reactive:</strong> Best for complex forms. More control and better
+        testability.
+      </li>
+      <li>
+        <strong>Validation:</strong> Use built-in validators first, then custom
+        validators as needed.
+      </li>
+      <li>
+        <strong>Performance:</strong> For large forms, Reactive Forms are more
+        performant.
+      </li>
+      <li>
+        <strong>Testing:</strong> Reactive Forms are much easier to unit test than
+        Template-Driven.
+      </li>
+      <li>
+        <strong>Async:</strong> Use async validators for server-side validation
+        (email exists, username taken, etc.).
+      </li>
+    </ul>
+  </div>
+</div>
+
+<style>
+  .hero-section {
+    text-align: center;
+    padding: 2rem 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 12px;
+    margin-bottom: 3rem;
+  }
+
+  .hero-section h1 {
+    color: white;
+  }
+
+  .hero-section .lead {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.25rem;
+  }
+
+  .hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .feature-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    transition: all 0.3s ease;
+    height: 100%;
+  }
+
+  .feature-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    transform: translateY(-4px);
+  }
+
+  .feature-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .feature-card h5 {
+    color: #667eea;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  .feature-card p {
+    color: #666;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .comparison-section {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .table {
+    margin: 0;
+  }
+
+  .table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #667eea;
+  }
+
+  .concept-list {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .concept-list h5 {
+    color: #667eea;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  .concept-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .concept-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e9ecef;
+  }
+
+  .concept-list li:last-child {
+    border-bottom: none;
+  }
+
+  .concept-list li:before {
+    content: '✓ ';
+    color: #28a745;
+    font-weight: bold;
+    margin-right: 0.5rem;
+  }
+
+  .features-list {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 6px;
+    border-left: 4px solid #667eea;
+  }
+
+  .feature-item .badge {
+    flex-shrink: 0;
+  }
+
+  .steps {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .step {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+
+  .step-number {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .step-content {
+    flex: 1;
+  }
+
+  .step-content strong {
+    color: #333;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .step-content p {
+    color: #666;
+    margin: 0;
+  }
+
+  .step-content a {
+    color: #667eea;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .step-content a:hover {
+    text-decoration: underline;
+  }
+
+  .tips-section {
+    border-left: 4px solid #667eea;
+  }
+
+  .tips-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .tips-list li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #e9ecef;
+    color: #666;
+  }
+
+  .tips-list li:last-child {
+    border-bottom: none;
+  }
+
+  .tips-list strong {
+    color: #333;
+  }
+
+  @media (max-width: 768px) {
+    .hero-section {
+      padding: 1.5rem 1rem;
+    }
+
+    .hero-section h1 {
+      font-size: 1.75rem;
+    }
+
+    .hero-buttons {
+      flex-direction: column;
+    }
+
+    .hero-buttons .btn {
+      width: 100%;
+    }
+
+    .step {
+      gap: 1rem;
+    }
+  }
+</style>

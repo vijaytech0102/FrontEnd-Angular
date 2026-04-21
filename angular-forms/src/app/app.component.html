@@ -1,0 +1,162 @@
+<div class="app-container">
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container-fluid">
+      <!-- Brand -->
+      <a class="navbar-brand" href="/">
+        📚 Angular Forms Guide
+      </a>
+
+      <!-- Toggle Button for Mobile -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        (click)="toggleNav()"
+        [attr.aria-expanded]="navOpen"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Navigation Menu -->
+      <div class="collapse navbar-collapse" [class.show]="navOpen">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/home" routerLinkActive="active" (click)="closeNav()">
+              🏠 Home
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="templateFormsDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              📋 Template-Driven
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="templateFormsDropdown">
+              <li>
+                <a
+                  class="dropdown-item"
+                  routerLink="/template-driven"
+                  routerLinkActive="active"
+                  (click)="closeNav()"
+                >
+                  User Registration
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="reactiveFormsDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              ⚙️ Reactive Forms
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="reactiveFormsDropdown">
+              <li>
+                <a
+                  class="dropdown-item"
+                  routerLink="/reactive-login"
+                  routerLinkActive="active"
+                  (click)="closeNav()"
+                >
+                  Login Form
+                </a>
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  routerLink="/reactive-profile"
+                  routerLinkActive="active"
+                  (click)="closeNav()"
+                >
+                  Profile Form (Advanced)
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              routerLink="/submissions"
+              routerLinkActive="active"
+              (click)="closeNav()"
+            >
+              📊 Submissions
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-container">
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+
+  <!-- Notifications -->
+  <div class="notification-container">
+    <div
+      *ngFor="let notification of notifications"
+      class="notification"
+      [class]="'alert alert-' + (notification.type === 'success' ? 'success' : notification.type === 'error' ? 'danger' : 'info')"
+      role="alert"
+    >
+      <div class="d-flex justify-content-between align-items-center">
+        <span>{{ notification.message }}</span>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="notificationService.remove(notification.id)"
+          aria-label="Close"
+        ></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .notification-container {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 1000;
+    max-width: 400px;
+  }
+
+  .notification {
+    margin-bottom: 1rem;
+    animation: slideInRight 0.3s ease-out;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  @keyframes slideInRight {
+    from {
+      transform: translateX(400px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .notification-container {
+      right: 10px;
+      left: 10px;
+      max-width: none;
+    }
+  }
+</style>

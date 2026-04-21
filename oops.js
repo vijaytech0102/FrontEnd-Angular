@@ -272,3 +272,4 @@ const logger = new Logger();
 logger.log('This is a log message.'); // Output: [undefined] Log: This is a log message.
 logger.log('This is an error message.', 'ERROR'); // Output: [ERROR] Log: This is an error message. 
 
+  

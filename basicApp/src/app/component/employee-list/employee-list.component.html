@@ -1,0 +1,102 @@
+<div class="employee-list-container">
+  <div class="header">
+    <h1>Employee Management System</h1>
+    <div class="stats">
+      <div class="stat-card">
+        <span class="stat-label">Total Employees</span>
+        <span class="stat-value">{{ getTotalEmployees() }}</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Active Employees</span>
+        <span class="stat-value">{{ getActiveEmployees() }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="btn btn-primary" routerLink="/employee/add">
+      + Add New Employee
+    </button>
+  </div>
+
+  <div class="search-section">
+    <div class="search-group">
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Search by name, email, or department..."
+        [(ngModel)]="searchTerm"
+        (keyup)="searchEmployees()"
+      />
+    </div>
+
+    <div class="filter-group">
+      <select class="filter-select" [(ngModel)]="selectedDepartment" (change)="filterByDepartment()">
+        <option value="">All Departments</option>
+        <option *ngFor="let dept of departments" [value]="dept">{{ dept }}</option>
+      </select>
+    </div>
+
+    <button class="btn btn-secondary" (click)="clearFilters()">Clear Filters</button>
+  </div>
+
+  <div class="table-section">
+    <table class="employees-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Department</th>
+          <th>Position</th>
+          <th>Salary</th>
+          <th>Date of Joining</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="filteredEmployees.length === 0">
+          <td colspan="10" class="no-data">No employees found</td>
+        </tr>
+        <tr *ngFor="let employee of filteredEmployees" class="employee-row">
+          <td>{{ employee.id }}</td>
+          <td>{{ employee.firstName }} {{ employee.lastName }}</td>
+          <td>{{ employee.email }}</td>
+          <td>{{ employee.phone }}</td>
+          <td>{{ employee.department }}</td>
+          <td>{{ employee.position }}</td>
+          <td>${{ employee.salary | number: '1.2-2' }}</td>
+          <td>{{ employee.dateOfJoining | date: 'MMM dd, yyyy' }}</td>
+          <td>
+            <span class="status" [ngClass]="employee.status === 'Active' ? 'active' : 'inactive'">
+              {{ employee.status }}
+            </span>
+          </td>
+          <td class="actions">
+            <button class="btn btn-edit" [routerLink]="['/employee/edit', employee.id]">Edit</button>
+            <button class="btn btn-delete" (click)="openDeleteConfirm(employee)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div *ngIf="showDeleteConfirm" class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Confirm Delete</h2>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete <strong>{{ employeeToDelete?.firstName }} {{ employeeToDelete?.lastName }}</strong>?</p>
+        <p class="warning">This action cannot be undone.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="closeDeleteConfirm()">Cancel</button>
+        <button class="btn btn-danger" (click)="deleteEmployee(employeeToDelete?.id)">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>

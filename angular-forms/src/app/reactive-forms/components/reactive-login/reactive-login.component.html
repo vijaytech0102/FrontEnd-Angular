@@ -1,0 +1,239 @@
+<div class="form-section">
+  <h2 class="form-title">🔐 Reactive Form - User Login</h2>
+
+  <!-- Form State Information -->
+  <div class="alert alert-info" *ngIf="loginForm">
+    <strong>Form State:</strong> {{ getFormState() }}
+  </div>
+
+  <!-- Reactive Form -->
+  <!-- [formGroup]: Binds the FormGroup from component -->
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+    <!-- Email Control -->
+    <div class="form-group mb-3">
+      <label for="email" class="form-label">Email Address *</label>
+      <!-- 
+        formControlName: Links this input to FormControl in FormGroup
+        [class.is-invalid]: Dynamic class binding for validation styling
+      -->
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        formControlName="email"
+        placeholder="Enter your email"
+        [class.is-invalid]="isSubmitted && !loginForm.get('email')?.valid"
+      />
+      <!-- Show validation message -->
+      <div
+        class="invalid-feedback"
+        *ngIf="isSubmitted && !loginForm.get('email')?.valid"
+      >
+        {{ getFieldError('email') }}
+      </div>
+      <!-- Show pending/validating state -->
+      <small class="form-text text-info" *ngIf="isFieldValidating('email')">
+        ⏳ Checking email availability...
+      </small>
+    </div>
+
+    <!-- Password Control -->
+    <div class="form-group mb-3">
+      <label for="password" class="form-label">Password *</label>
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        formControlName="password"
+        placeholder="Enter your password"
+        [class.is-invalid]="isSubmitted && !loginForm.get('password')?.valid"
+      />
+      <small class="form-text text-muted d-block mt-1">
+        Minimum 6 characters
+      </small>
+      <div
+        class="invalid-feedback"
+        *ngIf="isSubmitted && !loginForm.get('password')?.valid"
+      >
+        {{ getFieldError('password') }}
+      </div>
+    </div>
+
+    <!-- Error Alert -->
+    <div class="alert alert-danger" *ngIf="loginError">
+      <strong>Error:</strong> {{ loginError }}
+    </div>
+
+    <!-- Submit Button -->
+    <div class="form-actions mb-3">
+      <button
+        type="submit"
+        class="btn btn-submit btn-primary"
+        [disabled]="isLoading || loginForm.invalid"
+      >
+        <span *ngIf="isLoading">
+          <span class="spinner-border spinner-border-sm me-2"></span>Logging in...
+        </span>
+        <span *ngIf="!isLoading">Sign In</span>
+      </button>
+      <button
+        type="button"
+        class="btn btn-reset btn-secondary"
+        (click)="resetForm()"
+        [disabled]="isLoading"
+      >
+        Reset
+      </button>
+    </div>
+  </form>
+
+  <!-- Success Message -->
+  <div class="alert alert-success" *ngIf="loginSuccess && submittedCredentials">
+    <h5>✅ Login Successful!</h5>
+    <p>Email: {{ submittedCredentials.email }}</p>
+    <p class="mb-0">Your credentials have been saved to local storage.</p>
+  </div>
+</div>
+
+<!-- Explanation Section -->
+<div class="form-section bg-light mt-4">
+  <h4>📚 Reactive Forms - Key Concepts</h4>
+
+  <div class="concept-item mb-3">
+    <strong>1. FormControl & FormGroup</strong>
+    <p class="mt-2">
+      <strong>FormControl:</strong> Manages a single form input
+    </p>
+    <pre><code>const emailControl = new FormControl('', Validators.required);</code></pre>
+    <p class="mt-2">
+      <strong>FormGroup:</strong> Groups multiple controls together
+    </p>
+    <pre><code>const loginForm = new FormGroup({
+  email: new FormControl('', Validators.required),
+  password: new FormControl('', Validators.minLength(6))
+});</code></pre>
+  </div>
+
+  <div class="concept-item mb-3">
+    <strong>2. FormBuilder - Simplified Form Creation</strong>
+    <p class="mt-2">
+      FormBuilder provides a shorter syntax for creating forms:
+    </p>
+    <pre><code>this.form = this.formBuilder.group({
+  email: ['', [Validators.required, Validators.email]],
+  password: ['', Validators.minLength(6)]
+});</code></pre>
+  </div>
+
+  <div class="concept-item mb-3">
+    <strong>3. Validators</strong>
+    <p class="mt-2">
+      <strong>Built-in Validators:</strong>
+    </p>
+    <ul class="mt-2">
+      <li><code>Validators.required</code> - Field cannot be empty</li>
+      <li><code>Validators.email</code> - Must be valid email format</li>
+      <li><code>Validators.minLength(n)</code> - Minimum character count</li>
+      <li><code>Validators.maxLength(n)</code> - Maximum character count</li>
+      <li><code>Validators.pattern(regex)</code> - Must match pattern</li>
+    </ul>
+  </div>
+
+  <div class="concept-item mb-3">
+    <strong>4. Async Validators</strong>
+    <p class="mt-2">
+      Async validators run asynchronous checks (API calls):
+    </p>
+    <pre><code>email: ['', {
+  validators: Validators.email,
+  asyncValidators: emailAvailabilityValidator(),
+  updateOn: 'blur'
+}]</code></pre>
+    <p class="mt-2">
+      In this form, the email field has an async validator that checks if the email is already registered. The form status becomes "PENDING" while the check is running.
+    </p>
+  </div>
+
+  <div class="concept-item mb-3">
+    <strong>5. Form Status and Value Changes</strong>
+    <p class="mt-2">
+      Subscribe to form changes reactively:
+    </p>
+    <ul class="mt-2">
+      <li><code>form.valueChanges</code> - Emits when any value changes</li>
+      <li><code>form.statusChanges</code> - Emits when validation status changes</li>
+      <li><code>form.valid</code> - Boolean indicating if form is valid</li>
+      <li><code>form.pending</code> - Boolean indicating if async validators are running</li>
+    </ul>
+  </div>
+
+  <div class="concept-item">
+    <strong>6. When to Use Reactive Forms</strong>
+    <p class="mt-2">
+      ✅ <strong>Best for:</strong> Complex forms, dynamic fields, unit testing, custom validation<br>
+      ❌ <strong>Avoid for:</strong> Very simple forms where template-driven is overkill
+    </p>
+  </div>
+</div>
+
+<style>
+  .form-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 768px) {
+    .form-actions {
+      flex-direction: column;
+    }
+
+    .form-actions button {
+      width: 100%;
+    }
+  }
+
+  .concept-item {
+    background: white;
+    padding: 1rem;
+    border-radius: 6px;
+    border-left: 4px solid #667eea;
+  }
+
+  .concept-item code {
+    background-color: #f4f4f4;
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    color: #d63384;
+    font-weight: 600;
+  }
+
+  .concept-item pre {
+    background-color: #f4f4f4;
+    padding: 1rem;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+
+  .concept-item ul {
+    list-style-type: none;
+    padding-left: 1.5rem;
+  }
+
+  .concept-item li {
+    position: relative;
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+  }
+
+  .concept-item li:before {
+    content: '▸';
+    position: absolute;
+    left: -1rem;
+    color: #667eea;
+    font-weight: bold;
+  }
+</style>
