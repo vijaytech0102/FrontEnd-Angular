@@ -1,0 +1,67 @@
+<div class="login-container">
+  <div class="login-box">
+    <h2>Login Form (Reactive)</h2>
+    
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input
+          type="text"
+          id="username"
+          formControlName="username"
+          placeholder="Enter your username"
+          class="form-control"
+          [class.is-invalid]="submitted && username?.invalid">
+        <div class="error-message" *ngIf="submitted && username?.invalid">
+          {{ getUsernameError() }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <div class="password-input-group">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            id="password"
+            formControlName="password"
+            placeholder="Enter your password"
+            class="form-control"
+            [class.is-invalid]="submitted && password?.invalid">
+          <button
+            type="button"
+            class="toggle-password"
+            (click)="togglePasswordVisibility()"
+            title="Toggle password visibility">
+            {{ showPassword ? '👁️‍🗨️' : '🔒' }}
+          </button>
+        </div>
+        <div class="error-message" *ngIf="submitted && password?.invalid">
+          {{ getPasswordError() }}
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-login"
+        [disabled]="loginForm.invalid && submitted">
+        Login
+      </button>
+    </form>
+
+    <!-- Success message -->
+    <div class="success-message" *ngIf="loginSuccess">
+      <h3>✓ Login Successful!</h3>
+      <p>Welcome, {{ loginForm.get('username')?.value }}!</p>
+    </div>
+
+    <!-- Form status -->
+    <div class="form-status">
+      <p class="status-text">
+        Form Status: 
+        <span [ngClass]="loginForm.valid ? 'valid' : 'invalid'">
+          {{ loginForm.valid ? '✓ Valid' : '✗ Invalid' }}
+        </span>
+      </p>
+    </div>
+  </div>
+</div>

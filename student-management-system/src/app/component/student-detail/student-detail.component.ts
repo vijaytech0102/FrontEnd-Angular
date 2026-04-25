@@ -12,9 +12,11 @@ import { StudentService } from '../../service/student.service';
   styleUrl: './student-detail.component.css'
 })
 export class StudentDetailComponent implements OnInit {
+ 
   student: Student | undefined;
   studentId: number | null = null;
 
+  // dependency injection
   constructor(
     private route: ActivatedRoute,
     private router: Router,

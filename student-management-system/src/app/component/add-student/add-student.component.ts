@@ -15,7 +15,7 @@ import { StudentService } from '../../service/student.service';
 export class AddStudentComponent {
   newStudent: Omit<Student, 'id' | 'status'> = {
     name: '',
-    email: '',
+    email: '', 
     phone: '',
     marks: 0
   };

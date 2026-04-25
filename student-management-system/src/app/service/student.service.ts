@@ -5,6 +5,8 @@ import { Student } from '../model/student.model';
   providedIn: 'root'
 })
 export class StudentService {
+ 
+  // list of object
   private students: Student[] = [
     {
       id: 1,
@@ -76,6 +78,7 @@ export class StudentService {
     } as Student);
   }
 
+  
   getTopStudents(): Student[] {
     return this.students.filter(s => s.marks >= 85).sort((a, b) => b.marks - a.marks);
   }

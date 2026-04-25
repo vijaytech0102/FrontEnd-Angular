@@ -1,0 +1,85 @@
+<div class="container">
+  <h2>Student Registration Form (Template-driven)</h2>
+  
+  <form (ngSubmit)="onSubmit()" #registrationForm="ngForm">
+    
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        [(ngModel)]="student.name"
+        placeholder="Enter your full name"
+        class="form-control"
+        [class.is-invalid]="submitted && getNameError()">
+      <div class="error-message" *ngIf="submitted && getNameError()">
+        {{ getNameError() }}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        [(ngModel)]="student.email"
+        placeholder="Enter your email"
+        class="form-control"
+        [class.is-invalid]="submitted && getEmailError()">
+      <div class="error-message" *ngIf="submitted && getEmailError()">
+        {{ getEmailError() }}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="age">Age:</label>
+      <input
+        type="number"
+        id="age"
+        name="age"
+        [(ngModel)]="student.age"
+        placeholder="Enter your age"
+        class="form-control"
+        [class.is-invalid]="submitted && getAgeError()">
+      <div class="error-message" *ngIf="submitted && getAgeError()">
+        {{ getAgeError() }}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="course">Course:</label>
+      <select
+        id="course"
+        name="course"
+        [(ngModel)]="student.course"
+        class="form-control"
+        [class.is-invalid]="submitted && getCourseError()">
+        <option value="">-- Select a Course --</option>
+        <option *ngFor="let course of courses" [value]="course">
+          {{ course }}
+        </option>
+      </select>
+      <div class="error-message" *ngIf="submitted && getCourseError()">
+        {{ getCourseError() }}
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="button" class="btn btn-secondary" (click)="resetForm()">Reset</button>
+    </div>
+  </form>
+
+  <!-- Display submitted data -->
+  <div class="result-section" *ngIf="studentData">
+    <h3>✓ Registration Successful!</h3>
+    <div class="result-data">
+      <p><strong>Name:</strong> {{ studentData.name }}</p>
+      <p><strong>Email:</strong> {{ studentData.email }}</p>
+      <p><strong>Age:</strong> {{ studentData.age }}</p>
+      <p><strong>Course:</strong> {{ studentData.course }}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="container">
+  <h2>Dynamic Form - Add/Remove Skills</h2>
+
+  <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input
+        type="text"
+        id="name"
+        formControlName="name"
+        placeholder="Enter your full name"
+        class="form-control"
+        [class.is-invalid]="submitted && name?.invalid">
+      <div class="error-message" *ngIf="submitted && name?.invalid">
+        {{ getNameError() }}
+      </div>
+    </div>
+
+    <div class="skills-section">
+      <h3>Skills</h3>
+      <div formArrayName="skills">
+        <div *ngFor="let skill of skills.controls; let i = index" class="skill-item">
+          <div class="skill-input-group">
+            <input
+              type="text"
+              [formControlName]="i"
+              placeholder="Enter skill name (e.g., Angular, TypeScript)"
+              class="form-control"
+              [class.is-invalid]="submitted && skills.at(i).invalid">
+            <button
+              type="button"
+              class="btn btn-remove"
+              (click)="removeSkill(i)"
+              [disabled]="skills.length === 1"
+              title="Remove this skill">
+              ✕
+            </button>
+          </div>
+          <div class="error-message" *ngIf="submitted && skills.at(i).invalid">
+            {{ getSkillError(i) }}
+          </div>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="btn btn-add-skill"
+        (click)="addSkill()">
+        + Add Skill
+      </button>
+    </div>
+
+    <div class="button-group">
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="button" class="btn btn-secondary" (click)="resetForm()">Reset</button>
+    </div>
+  </form>
+
+  <!-- Display submitted data as JSON -->
+  <div class="result-section" *ngIf="formData">
+    <h3>✓ Form Data Submitted!</h3>
+    <pre class="json-output">{{ formData | json }}</pre>
+    <button type="button" class="btn btn-copy" (click)="resetForm()">
+      Submit New Entry
+    </button>
+  </div>
+</div>
