@@ -1,0 +1,42 @@
+<form (ngSubmit)="onSubmit()" #studentForm="ngForm">
+   
+    <label for="name">Name:</label>
+    <input id="name" name="name" [(ngModel)]="user.name" required minlength="2"
+      	#nameField="ngModel" />
+        <div>
+            <small class="error" *ngIf="nameField.invalid && nameField.touched">
+                Name is required and must be at least 2 characters.
+            </small>
+        </div>
+ 
+  <label for="email">Email:</label>
+  <input id="email" name="email" type="email" [(ngModel)]="user.email" required email #emailField="ngModel"/>
+  <div>
+    <small class="error" *ngIf="emailField.invalid && emailField.touched">
+      Valid email is required.
+    </small>
+  </div>
+ 
+  <label for="mobile">Mobile:</label>
+  <input id="mobile" name="mobile" type="tel" [(ngModel)]="user.mobile" #mobileField="ngModel"/>
+  <div>
+    
+    <small *ngIf="user.mobile && !mobileValidator(user.mobile)">
+      Please enter a valid mobile number.
+    </small>
+  </div>
+  
+  <label for="country">Country:</label>
+  <select id="country" name="country" [(ngModel)]="user.country">
+	<option value="">Select Country</option>
+	<option value="us">USA</option>
+  </select>
+
+  <label for="agree">
+    <input id="agree" type="checkbox" name="agree" [(ngModel)]="user.agree" />
+    I agree to the terms and conditions
+  </label>
+
+  <button [disabled]="user.invalid" type="submit">Submit</button>
+</form>
+

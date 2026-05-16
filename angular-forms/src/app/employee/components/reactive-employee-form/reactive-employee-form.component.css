@@ -1,0 +1,389 @@
+/* 
+  Reactive Employee Form Styles
+  Professional styling for reactive forms
+*/
+
+.container {
+  max-width: 1000px;
+}
+
+/* Card Styling */
+.card {
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  border-radius: 8px 8px 0 0;
+  padding: 1.25rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.card-header h5 {
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+/* Form Controls */
+.form-control,
+.form-select {
+  border-radius: 6px;
+  border: 1px solid #ced4da;
+  padding: 0.75rem;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+  background-color: #fff;
+}
+
+.form-control.is-invalid,
+.form-select.is-invalid {
+  border-color: #dc3545;
+  background-image: none;
+}
+
+.form-control.is-invalid:focus,
+.form-select.is-invalid:focus {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+/* Form Labels */
+.form-label {
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.3px;
+}
+
+.form-label .text-danger {
+  margin-left: 2px;
+}
+
+/* Invalid Feedback */
+.invalid-feedback {
+  display: block;
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  font-weight: 500;
+}
+
+/* Badges */
+.badge {
+  padding: 0.35rem 0.65rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+/* Buttons */
+.btn {
+  border-radius: 6px;
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.btn-primary:hover {
+  background-color: #0b5ed7;
+  border-color: #0b5ed7;
+}
+
+.btn-success {
+  background-color: #198754;
+  border-color: #198754;
+}
+
+.btn-success:hover {
+  background-color: #157347;
+  border-color: #157347;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-sm {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Alerts */
+.alert {
+  border-radius: 6px;
+  border: 1px solid transparent;
+  padding: 1rem;
+  font-size: 0.95rem;
+  animation: slideIn 0.3s ease;
+}
+
+.alert i {
+  margin-right: 0.5rem;
+}
+
+.alert-success {
+  background-color: #d1e7dd;
+  border-color: #badbcc;
+  color: #0f5132;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  border-color: #f5c2c7;
+  color: #842029;
+}
+
+.alert-warning {
+  background-color: #fff3cd;
+  border-color: #ffecb5;
+  color: #664d03;
+}
+
+/* Progress Bar */
+.progress {
+  height: 30px;
+  border-radius: 6px;
+  background-color: #e9ecef;
+  overflow: hidden;
+}
+
+.progress-bar {
+  background: linear-gradient(90deg, #0d6efd, #0b5ed7);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.9rem;
+  transition: width 0.6s ease;
+}
+
+/* Form Check */
+.form-check {
+  padding-left: 1.5rem;
+}
+
+.form-check-input {
+  width: 1.25em;
+  height: 1.25em;
+  margin-top: 0.3em;
+  border-radius: 4px;
+  border: 1px solid #ced4da;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.form-check-input:checked {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.form-check-input:focus {
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.form-check-label {
+  margin-bottom: 0;
+  cursor: pointer;
+  color: #333;
+  font-weight: 500;
+}
+
+/* Input Groups */
+.input-group {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.input-group > .form-control {
+  position: relative;
+  flex: 1 1 auto;
+  width: 1%;
+}
+
+.input-group > .btn {
+  padding: 0.75rem 1.5rem;
+  margin-left: -1px;
+}
+
+/* Nested Cards */
+.bg-light {
+  background-color: #f8f9fa;
+}
+
+/* Section Cards */
+.card.mb-3.bg-light {
+  border-color: #dee2e6;
+}
+
+.card.mb-3.bg-light .card-header {
+  background-color: #e9ecef;
+  border-bottom-color: #dee2e6;
+}
+
+/* Spinner */
+.spinner-border-sm {
+  width: 1rem;
+  height: 1rem;
+  border-width: 0.2em;
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInOut {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .card-body {
+    padding: 1rem;
+  }
+
+  .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .form-label {
+    font-size: 0.95rem;
+  }
+
+  .form-control,
+  .form-select {
+    font-size: 0.9rem;
+  }
+
+  .d-flex.justify-content-between {
+    flex-direction: column-reverse;
+  }
+
+  .d-flex.justify-content-between > div {
+    margin-top: 1rem;
+  }
+
+  .col-md-6,
+  .col-md-4,
+  .col-md-3 {
+    width: 100% !important;
+  }
+}
+
+/* Accessibility */
+.form-control:invalid,
+.form-select:invalid {
+  background-image: none;
+}
+
+/* Focus visible styles for keyboard navigation */
+.btn:focus-visible,
+.form-control:focus-visible,
+.form-select:focus-visible,
+.form-check-input:focus-visible {
+  outline: 2px solid #0d6efd;
+  outline-offset: 2px;
+}
+
+/* Loading state */
+.btn:disabled {
+  opacity: 0.65;
+}
+
+/* Badge styling */
+.badge-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Info card for debugging */
+.bg-light {
+  background-color: #f8f9fa !important;
+}
+
+/* Small text styling */
+small.form-text {
+  display: block;
+  margin-top: 0.25rem;
+  color: #6c757d;
+}
+
+small.text-muted {
+  color: #6c757d !important;
+  font-size: 0.875rem;
+}
+
+/* Validation indicator */
+.text-danger {
+  color: #dc3545;
+}
+
+.text-success {
+  color: #198754;
+}
+
+.text-warning {
+  color: #ffc107;
+}
+
+.text-info {
+  color: #0dcaf0;
+}

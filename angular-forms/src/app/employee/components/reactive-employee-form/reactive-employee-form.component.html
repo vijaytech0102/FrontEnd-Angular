@@ -1,0 +1,1140 @@
+<!-- 
+  Reactive Employee Form Template
+  Industrial-grade form with validation, error messages, and multi-step navigation
+ -->
+
+<div class="container mt-5 mb-5">
+  <!-- Header Section -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-header bg-primary text-white">
+      <h2 class="mb-0">
+        <i class="bi bi-person-fill"></i> Employee Registration Form - Reactive
+      </h2>
+      <p class="mb-0 mt-2 small">Step {{ currentStep }} of {{ totalSteps }}</p>
+    </div>
+  </div>
+
+  <!-- Success Message -->
+  <div
+    *ngIf="showSuccessMessage"
+    class="alert alert-success alert-dismissible fade show"
+    role="alert"
+  >
+    <i class="bi bi-check-circle"></i>
+    <strong>Success!</strong> {{ successMessage }}
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+    <i class="bi bi-exclamation-triangle"></i>
+    <strong>Error!</strong> {{ errorMessage }}
+  </div>
+
+  <!-- Progress Bar -->
+  <div class="progress mb-4">
+    <div
+      class="progress-bar"
+      [style.width.%]="(currentStep / totalSteps) * 100"
+      role="progressbar"
+    >
+      {{ currentStep }} / {{ totalSteps }}
+    </div>
+  </div>
+
+  <!-- Main Form -->
+  <form [formGroup]="employeeForm" class="needs-validation">
+    <!-- ========== STEP 1: PERSONAL INFORMATION ========== -->
+    <div *ngIf="currentStep === 1" [@fadeInOut]>
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-info text-white">
+          <h5 class="mb-0">
+            <i class="bi bi-person"></i> Personal Information
+          </h5>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="employeeForm.get('personalInfo') as FormGroup">
+            <div class="row">
+              <!-- First Name -->
+              <div class="col-md-6 mb-3">
+                <label class="form-label"
+                  >First Name
+                  <span class="text-danger">*</span>
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="firstName"
+                  placeholder="Enter first name"
+                  [class.is-invalid]="
+                    employeeForm.get('personalInfo.firstName')?.invalid &&
+                    employeeForm.get('personalInfo.firstName')?.touched
+                  "
+                />
+                <div class="invalid-feedback">
+                  {{ getErrorMessage('personalInfo.firstName') }}
+                </div>
+              </div>
+
+              <!-- Last Name -->
+              <div class="col-md-6 mb-3">
+                <label class="form-label"
+                  >Last Name
+                  <span class="text-danger">*</span>
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="lastName"
+                  placeholder="Enter last name"
+                  [class.is-invalid]="
+                    employeeForm.get('personalInfo.lastName')?.invalid &&
+                    employeeForm.get('personalInfo.lastName')?.touched
+                  "
+                />
+                <div class="invalid-feedback">
+                  {{ getErrorMessage('personalInfo.lastName') }}
+                </div>
+              </div>
+
+              <!-- Email -->
+              <div class="col-md-6 mb-3">
+                <label class="form-label"
+                  >Email
+                  <span class="text-danger">*</span>
+                </label>
+                <input
+                  type="email"
+                  class="form-control"
+                  formControlName="email"
+                  placeholder="name@example.com"
+                  [class.is-invalid]="
+                    employeeForm.get('personalInfo.email')?.invalid &&
+                    employeeForm.get('personalInfo.email')?.touched
+                  "
+                />
+                <div class="invalid-feedback">
+                  {{ getErrorMessage('personalInfo.email') }}
+                </div>
+                <!-- Async validator pending indicator -->
+                <small
+                  *ngIf="employeeForm.get('personalInfo.email')?.pending"
+                  class="text-muted"
+                >
+                  <i class="bi bi-hourglass-split"></i> Checking email...
+                </small>
+              </div>
+
+              <!-- Date of Birth -->
+              <div class="col-md-6 mb-3">
+                <label class="form-label"
+                  >Date of Birth
+                  <span class="text-danger">*</span>
+                </label>
+                <input
+                  type="date"
+                  class="form-control"
+                  formControlName="dateOfBirth"
+                  [class.is-invalid]="
+                    employeeForm.get('personalInfo.dateOfBirth')?.invalid &&
+                    employeeForm.get('personalInfo.dateOfBirth')?.touched
+                  "
+                />
+                <div class="invalid-feedback">
+                  {{ getErrorMessage('personalInfo.dateOfBirth') }}
+                </div>
+              </div>
+
+              <!-- Phone -->
+              <div class="col-md-6 mb-3">
+                <label class="form-label"
+                  >Phone Number
+                  <span class="text-danger">*</span>
+                </label>
+                <input
+                  type="tel"
+                  class="form-control"
+                  formControlName="phone"
+                  placeholder="+91-9876543210"
+                  [class.is-invalid]="
+                    employeeForm.get('personalInfo.phone')?.invalid &&
+                    employeeForm.get('personalInfo.phone')?.touched
+                  "
+                />
+                <div class="invalid-feedback">
+                  {{ getErrorMessage('personalInfo.phone') }}
+                </div>
+                <small class="form-text text-muted"
+                  >Format: +91-XXXXXXXXXX or 10 digits</small
+                >
+              </div>
+
+              <!-- Gender -->
+              <div class="col-md-6 mb-3">
+                <label class="form-label"
+                  >Gender
+                  <span class="text-danger">*</span>
+                </label>
+                <select
+                  class="form-select"
+                  formControlName="gender"
+                  [class.is-invalid]="
+                    employeeForm.get('personalInfo.gender')?.invalid &&
+                    employeeForm.get('personalInfo.gender')?.touched
+                  "
+                >
+                  <option value="">Select gender</option>
+                  <option *ngFor="let g of genders" [value]="g">
+                    {{ g | titlecase }}
+                  </option>
+                </select>
+                <div class="invalid-feedback">
+                  {{ getErrorMessage('personalInfo.gender') }}
+                </div>
+              </div>
+
+              <!-- Nationality -->
+              <div class="col-md-6 mb-3">
+                <label class="form-label"
+                  >Nationality
+                  <span class="text-danger">*</span>
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="nationality"
+                  placeholder="e.g., Indian"
+                  [class.is-invalid]="
+                    employeeForm.get('personalInfo.nationality')?.invalid &&
+                    employeeForm.get('personalInfo.nationality')?.touched
+                  "
+                />
+                <div class="invalid-feedback">
+                  {{ getErrorMessage('personalInfo.nationality') }}
+                </div>
+              </div>
+
+              <!-- Alternate Phone (Optional) -->
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Alternate Phone (Optional)</label>
+                <input
+                  type="tel"
+                  class="form-control"
+                  formControlName="alternatePhone"
+                  placeholder="+91-XXXXXXXXXX"
+                />
+              </div>
+
+              <!-- Personal Email (Optional) -->
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Personal Email (Optional)</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  formControlName="personalEmail"
+                  placeholder="personal@example.com"
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== STEP 2: EMPLOYMENT DETAILS ========== -->
+    <div *ngIf="currentStep === 2" [@fadeInOut]>
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-info text-white">
+          <h5 class="mb-0">
+            <i class="bi bi-briefcase"></i> Employment Details
+          </h5>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="employeeForm.get('employmentDetails') as FormGroup">
+            <div class="row">
+              <!-- Employee ID -->
+              <div class="col-md-6 mb-3">
+                <label class="form-label"
+                  >Employee ID
+                  <span class="text-danger">*</span>
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="employeeId"
+                  placeholder="Auto-generated"
+                  [class.is-invalid]="
+                    employeeForm.get('employmentDetails.employeeId')?.invalid &&
+                    employeeForm.get('employmentDetails.employeeId')?.touched
+                  "
+                />
+              </div>
+
+              <!-- Department -->
+              <div class="col-md-6 mb-3">
+                <label class="form-label"
+                  >Department
+                  <span class="text-danger">*</span>
+                </label>
+                <select
+                  class="form-select"
+                  formControlName="department"
+                  [class.is-invalid]="
+                    employeeForm.get('employmentDetails.department')?.invalid &&
+                    employeeForm.get('employmentDetails.department')?.touched
+                  "
+                >
+                  <option value="">Select department</option>
+                  <option *ngFor="let dept of departments" [value]="dept">
+                    {{ dept }}
+                  </option>
+                </select>
+              </div>
+
+              <!-- Designation -->
+              <div class="col-md-6 mb-3">
+                <label class="form-label"
+                  >Designation
+                  <span class="text-danger">*</span>
+                </label>
+                <select
+                  class="form-select"
+                  formControlName="designation"
+                  [class.is-invalid]="
+                    employeeForm.get('employmentDetails.designation')?.invalid &&
+                    employeeForm.get('employmentDetails.designation')?.touched
+                  "
+                >
+                  <option value="">Select designation</option>
+                  <option *ngFor="let desig of designations" [value]="desig">
+                    {{ desig }}
+                  </option>
+                </select>
+              </div>
+
+              <!-- Reporting Manager -->
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Reporting Manager</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="reportingManager"
+                  placeholder="Manager name"
+                />
+              </div>
+
+              <!-- Employment Type -->
+              <div class="col-md-6 mb-3">
+                <label class="form-label"
+                  >Employment Type
+                  <span class="text-danger">*</span>
+                </label>
+                <select
+                  class="form-select"
+                  formControlName="employmentType"
+                >
+                  <option *ngFor="let type of employmentTypes" [value]="type">
+                    {{ type | titlecase }}
+                  </option>
+                </select>
+              </div>
+
+              <!-- Date of Joining -->
+              <div class="col-md-6 mb-3">
+                <label class="form-label"
+                  >Date of Joining
+                  <span class="text-danger">*</span>
+                </label>
+                <input
+                  type="date"
+                  class="form-control"
+                  formControlName="dateOfJoining"
+                  [class.is-invalid]="
+                    employeeForm.get('employmentDetails.dateOfJoining')?.invalid &&
+                    employeeForm.get('employmentDetails.dateOfJoining')?.touched
+                  "
+                />
+              </div>
+
+              <!-- Employment Status -->
+              <div class="col-md-6 mb-3">
+                <label class="form-label"
+                  >Employment Status
+                  <span class="text-danger">*</span>
+                </label>
+                <select
+                  class="form-select"
+                  formControlName="employmentStatus"
+                >
+                  <option *ngFor="let status of employmentStatuses" [value]="status">
+                    {{ status | titlecase }}
+                  </option>
+                </select>
+              </div>
+
+              <!-- Date of Termination (Conditional) -->
+              <div
+                class="col-md-6 mb-3"
+                *ngIf="employeeForm.get('employmentDetails.employmentStatus')?.value === 'terminated'"
+              >
+                <label class="form-label"
+                  >Date of Termination
+                  <span class="text-danger">*</span>
+                </label>
+                <input
+                  type="date"
+                  class="form-control"
+                  formControlName="dateOfTermination"
+                  [class.is-invalid]="
+                    employeeForm.get('employmentDetails.dateOfTermination')?.invalid &&
+                    employeeForm.get('employmentDetails.dateOfTermination')?.touched
+                  "
+                />
+              </div>
+
+              <!-- Work Location -->
+              <div class="col-md-6 mb-3">
+                <label class="form-label"
+                  >Work Location
+                  <span class="text-danger">*</span>
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="workLocation"
+                  placeholder="e.g., Bangalore, Mumbai"
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== STEP 3: ADDRESSES & CONTACTS ========== -->
+    <div *ngIf="currentStep === 3" [@fadeInOut]>
+      <!-- Addresses Section -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-info text-white">
+          <div class="d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">
+              <i class="bi bi-geo-alt"></i> Addresses
+              <span class="badge bg-danger">Required</span>
+            </h5>
+            <button
+              type="button"
+              class="btn btn-sm btn-light"
+              (click)="addAddress()"
+            >
+              <i class="bi bi-plus"></i> Add Address
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div *ngIf="addressesArray.length === 0" class="alert alert-warning">
+            <i class="bi bi-exclamation-triangle"></i> At least one address is
+            required
+          </div>
+
+          <div *ngFor="let address of addressesArray.controls; let i = index">
+            <div class="card mb-3 bg-light">
+              <div class="card-header">
+                <div class="d-flex justify-content-between">
+                  <span>Address {{ i + 1 }}</span>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-danger"
+                    (click)="removeAddress(i)"
+                  >
+                    <i class="bi bi-trash"></i> Remove
+                  </button>
+                </div>
+              </div>
+              <div class="card-body" [formGroup]="address as FormGroup">
+                <div class="row">
+                  <div class="col-md-12 mb-3">
+                    <label class="form-label"
+                      >Street
+                      <span class="text-danger">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="street"
+                      placeholder="Street address"
+                    />
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label"
+                      >City
+                      <span class="text-danger">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="city"
+                      placeholder="City"
+                    />
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label"
+                      >State
+                      <span class="text-danger">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="state"
+                      placeholder="State"
+                    />
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label"
+                      >Zip Code
+                      <span class="text-danger">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="zipCode"
+                      placeholder="6 digits"
+                    />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label"
+                      >Country
+                      <span class="text-danger">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="country"
+                      placeholder="Country"
+                    />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label"
+                      >Address Type
+                      <span class="text-danger">*</span>
+                    </label>
+                    <select class="form-select" formControlName="addressType">
+                      <option *ngFor="let type of addressTypes" [value]="type">
+                        {{ type | titlecase }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-md-12 mb-3">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        formControlName="isCurrentAddress"
+                        [id]="'currentAddress' + i"
+                      />
+                      <label
+                        class="form-check-label"
+                        [for]="'currentAddress' + i"
+                      >
+                        This is my current address
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Emergency Contacts Section -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-info text-white">
+          <div class="d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">
+              <i class="bi bi-telephone"></i> Emergency Contacts
+              <span class="badge bg-danger">Required</span>
+            </h5>
+            <button
+              type="button"
+              class="btn btn-sm btn-light"
+              (click)="addEmergencyContact()"
+            >
+              <i class="bi bi-plus"></i> Add Contact
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div *ngIf="emergencyContactsArray.length === 0" class="alert alert-warning">
+            <i class="bi bi-exclamation-triangle"></i> At least one emergency
+            contact is required
+          </div>
+
+          <div *ngFor="let contact of emergencyContactsArray.controls; let i = index">
+            <div class="card mb-3 bg-light">
+              <div class="card-header">
+                <div class="d-flex justify-content-between">
+                  <span>Contact {{ i + 1 }}</span>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-danger"
+                    (click)="removeEmergencyContact(i)"
+                  >
+                    <i class="bi bi-trash"></i> Remove
+                  </button>
+                </div>
+              </div>
+              <div class="card-body" [formGroup]="contact as FormGroup">
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label"
+                      >Full Name
+                      <span class="text-danger">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="fullName"
+                      placeholder="Contact name"
+                    />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label"
+                      >Relationship
+                      <span class="text-danger">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="relationship"
+                      placeholder="e.g., Spouse, Parent, Sibling"
+                    />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label"
+                      >Phone Number
+                      <span class="text-danger">*</span>
+                    </label>
+                    <input
+                      type="tel"
+                      class="form-control"
+                      formControlName="contactNumber"
+                      placeholder="+91-XXXXXXXXXX"
+                    />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label">Email (Optional)</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      formControlName="email"
+                      placeholder="contact@example.com"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Education Section -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-info text-white">
+          <div class="d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">
+              <i class="bi bi-book"></i> Education (Optional)
+            </h5>
+            <button
+              type="button"
+              class="btn btn-sm btn-light"
+              (click)="addEducation()"
+            >
+              <i class="bi bi-plus"></i> Add Education
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div *ngFor="let education of educationsArray.controls; let i = index">
+            <div class="card mb-3 bg-light">
+              <div class="card-header">
+                <div class="d-flex justify-content-between">
+                  <span>Education {{ i + 1 }}</span>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-danger"
+                    (click)="removeEducation(i)"
+                  >
+                    <i class="bi bi-trash"></i> Remove
+                  </button>
+                </div>
+              </div>
+              <div class="card-body" [formGroup]="education as FormGroup">
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label"
+                      >Degree
+                      <span class="text-danger">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="degree"
+                      placeholder="e.g., B.Tech, MBA"
+                    />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label"
+                      >Institution
+                      <span class="text-danger">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="institution"
+                      placeholder="University/College name"
+                    />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label"
+                      >Field of Study
+                      <span class="text-danger">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="fieldOfStudy"
+                      placeholder="e.g., Computer Science"
+                    />
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <label class="form-label"
+                      >Graduation Year
+                      <span class="text-danger">*</span>
+                    </label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      formControlName="graduationYear"
+                      placeholder="YYYY"
+                    />
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <label class="form-label">GPA (Optional)</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="gpa"
+                      placeholder="e.g., 3.8"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== STEP 4: SKILLS, CERTIFICATIONS & SALARY ========== -->
+    <div *ngIf="currentStep === 4" [@fadeInOut]>
+      <!-- Skills Section -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-info text-white">
+          <div class="d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">
+              <i class="bi bi-star"></i> Skills
+              <span class="badge bg-danger">At least 1 required</span>
+            </h5>
+            <button
+              type="button"
+              class="btn btn-sm btn-light"
+              (click)="addSkill()"
+            >
+              <i class="bi bi-plus"></i> Add Skill
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div *ngIf="skillsArray.length === 0" class="alert alert-warning">
+            <i class="bi bi-exclamation-triangle"></i> At least one skill is
+            required
+          </div>
+
+          <div *ngFor="let skill of skillsArray.controls; let i = index">
+            <div class="card mb-3 bg-light">
+              <div class="card-header">
+                <div class="d-flex justify-content-between">
+                  <span>Skill {{ i + 1 }}</span>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-danger"
+                    (click)="removeSkill(i)"
+                  >
+                    <i class="bi bi-trash"></i> Remove
+                  </button>
+                </div>
+              </div>
+              <div class="card-body" [formGroup]="skill as FormGroup">
+                <div class="row">
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label"
+                      >Skill Name
+                      <span class="text-danger">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="name"
+                      placeholder="e.g., Java, Angular"
+                    />
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <label class="form-label"
+                      >Category
+                      <span class="text-danger">*</span>
+                    </label>
+                    <select class="form-select" formControlName="category">
+                      <option *ngFor="let cat of skillCategories" [value]="cat">
+                        {{ cat | titlecase }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <label class="form-label"
+                      >Proficiency Level
+                      <span class="text-danger">*</span>
+                    </label>
+                    <select
+                      class="form-select"
+                      formControlName="proficiencyLevel"
+                    >
+                      <option *ngFor="let level of proficiencyLevels" [value]="level">
+                        {{ level | titlecase }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-md-2 mb-3">
+                    <label class="form-label"
+                      >Years
+                      <span class="text-danger">*</span>
+                    </label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      formControlName="yearsOfExperience"
+                      placeholder="0"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Certifications Section -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-info text-white">
+          <div class="d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">
+              <i class="bi bi-award"></i> Certifications (Optional)
+            </h5>
+            <button
+              type="button"
+              class="btn btn-sm btn-light"
+              (click)="addCertification()"
+            >
+              <i class="bi bi-plus"></i> Add Certification
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div *ngFor="let cert of certificationsArray.controls; let i = index">
+            <div class="card mb-3 bg-light">
+              <div class="card-header">
+                <div class="d-flex justify-content-between">
+                  <span>Certification {{ i + 1 }}</span>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-danger"
+                    (click)="removeCertification(i)"
+                  >
+                    <i class="bi bi-trash"></i> Remove
+                  </button>
+                </div>
+              </div>
+              <div class="card-body" [formGroup]="cert as FormGroup">
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label"
+                      >Certification Name
+                      <span class="text-danger">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="name"
+                      placeholder="e.g., AWS Solutions Architect"
+                    />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label"
+                      >Issuer
+                      <span class="text-danger">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="issuer"
+                      placeholder="e.g., Amazon, Microsoft"
+                    />
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <label class="form-label"
+                      >Issue Date
+                      <span class="text-danger">*</span>
+                    </label>
+                    <input
+                      type="date"
+                      class="form-control"
+                      formControlName="issueDate"
+                    />
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <label class="form-label">Expiry Date (Optional)</label>
+                    <input
+                      type="date"
+                      class="form-control"
+                      formControlName="expiryDate"
+                    />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label">Credential ID (Optional)</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="credentialId"
+                      placeholder="Unique identifier"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Salary Information Section -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-info text-white">
+          <h5 class="mb-0">
+            <i class="bi bi-currency-dollar"></i> Salary Information
+            <span class="badge bg-danger">Required</span>
+          </h5>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="employeeForm.get('salaryInfo') as FormGroup">
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label class="form-label"
+                  >Base Salary
+                  <span class="text-danger">*</span>
+                </label>
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="baseSalary"
+                  placeholder="0"
+                />
+              </div>
+              <div class="col-md-4 mb-3">
+                <label class="form-label"
+                  >Currency
+                  <span class="text-danger">*</span>
+                </label>
+                <select class="form-select" formControlName="currency">
+                  <option *ngFor="let curr of currencies" [value]="curr">
+                    {{ curr }}
+                  </option>
+                </select>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label class="form-label"
+                  >Payment Frequency
+                  <span class="text-danger">*</span>
+                </label>
+                <select class="form-select" formControlName="paymentFrequency">
+                  <option *ngFor="let freq of paymentFrequencies" [value]="freq">
+                    {{ freq | titlecase }}
+                  </option>
+                </select>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label class="form-label">Bonus (Optional)</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="bonus"
+                  placeholder="0"
+                />
+              </div>
+            </div>
+
+            <!-- Benefits -->
+            <div class="mb-3">
+              <label class="form-label">Benefits (Optional)</label>
+              <div>
+                <button
+                  type="button"
+                  class="btn btn-sm btn-secondary mb-2"
+                  (click)="addBenefit()"
+                >
+                  <i class="bi bi-plus"></i> Add Benefit
+                </button>
+              </div>
+              <div [formArray]="benefitsArray">
+                <div *ngFor="let benefit of benefitsArray.controls; let i = index" class="mb-2">
+                  <div class="input-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      [formControl]="benefit"
+                      placeholder="e.g., Health Insurance"
+                    />
+                    <button
+                      type="button"
+                      class="btn btn-outline-danger"
+                      (click)="removeBenefit(i)"
+                    >
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Consents Section -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-info text-white">
+          <h5 class="mb-0">
+            <i class="bi bi-check-circle"></i> Consents
+          </h5>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="employeeForm.get('consents') as FormGroup">
+            <div class="form-check mb-3">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                formControlName="termsAndConditions"
+                id="termsCheck"
+              />
+              <label class="form-check-label" for="termsCheck">
+                I agree to the <strong>Terms and Conditions</strong>
+                <span class="text-danger">*</span>
+              </label>
+            </div>
+            <div class="form-check mb-3">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                formControlName="dataPrivacyConsent"
+                id="privacyCheck"
+              />
+              <label class="form-check-label" for="privacyCheck">
+                I agree to the <strong>Data Privacy Policy</strong>
+                <span class="text-danger">*</span>
+              </label>
+            </div>
+            <div class="form-check mb-3">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                formControlName="backgroundCheckConsent"
+                id="bgCheck"
+              />
+              <label class="form-check-label" for="bgCheck">
+                I authorize <strong>Background Check</strong>
+              </label>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== NAVIGATION BUTTONS ========== -->
+    <div class="d-flex justify-content-between mb-4">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="previousStep()"
+        [disabled]="currentStep === 1"
+      >
+        <i class="bi bi-chevron-left"></i> Previous
+      </button>
+
+      <div>
+        <button
+          type="button"
+          class="btn btn-outline-secondary me-2"
+          (click)="resetForm()"
+        >
+          <i class="bi bi-arrow-clockwise"></i> Reset
+        </button>
+
+        <button
+          *ngIf="currentStep < totalSteps"
+          type="button"
+          class="btn btn-primary"
+          (click)="nextStep()"
+          [disabled]="!isCurrentStepValid()"
+        >
+          Next <i class="bi bi-chevron-right"></i>
+        </button>
+
+        <button
+          *ngIf="currentStep === totalSteps"
+          type="button"
+          class="btn btn-success"
+          (click)="submitForm()"
+          [disabled]="!employeeForm.valid || isSubmitting"
+        >
+          <span *ngIf="!isSubmitting">
+            <i class="bi bi-check-circle"></i> Submit Form
+          </span>
+          <span *ngIf="isSubmitting">
+            <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+            Submitting...
+          </span>
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Form Status Debug Info (Development) -->
+  <div class="card bg-light mt-4">
+    <div class="card-header">
+      <h6 class="mb-0">
+        <i class="bi bi-info-circle"></i> Form Status
+      </h6>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-3">
+          <strong>Form Valid:</strong> {{ employeeForm.valid | json }}
+        </div>
+        <div class="col-md-3">
+          <strong>Form Touched:</strong> {{ employeeForm.touched | json }}
+        </div>
+        <div class="col-md-3">
+          <strong>Form Dirty:</strong> {{ employeeForm.dirty | json }}
+        </div>
+        <div class="col-md-3">
+          <strong>Current Step:</strong> {{ currentStep }} / {{ totalSteps }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

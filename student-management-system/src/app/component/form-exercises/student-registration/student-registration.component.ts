@@ -69,14 +69,18 @@ export class StudentRegistrationComponent {
   }
 
   getNameError(): string {
-    if (this.student.name.length === 0) return 'Name is required';
-    if(this.student.name.startsWith(' ')) return 'Name cannot start with a space';
-    if (this.student.name.length < 3) return 'Name must be at least 3 characters';
+    if (this.student.name.length === 0) 
+      return 'Name is required';
+    if(this.student.name.startsWith(' ')) 
+      return 'Name cannot start with a space';
+    if (this.student.name.length < 3) 
+      return 'Name must be at least 3 characters';
     for (let char of this.student.name) {
       if (!/[a-zA-Z\s]/.test(char)) {
         return 'Name can only contain letters and spaces';
       }
     }
+    if(this.student.name.length > 50) return 'Name cannot exceed 50 characters';
     return '';
   }
 
