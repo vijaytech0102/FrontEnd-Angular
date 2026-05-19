@@ -23,12 +23,12 @@
         id="fullName"
         name="fullName"
         [(ngModel)]="user.fullName"
-        #fullName="ngModelGroup"
+        #fullName="ngModel"
         required
-        [class.is-invalid]="isSubmitted && !registrationForm.get('fullName')?.valid"
+        [class.is-invalid]="isSubmitted && !fullName?.valid"
         placeholder="Enter your full name"
       />
-      <div class="invalid-feedback" *ngIf="isSubmitted && !registrationForm.get('fullName')?.valid">
+      <div class="invalid-feedback" *ngIf="isSubmitted && !fullName?.valid">
         {{ getFieldError('fullName') }}
       </div>
     </div>
@@ -46,12 +46,13 @@
         id="email"
         name="email"
         [(ngModel)]="user.email"
+        #email="ngModel"
         required
         email
-        [class.is-invalid]="isSubmitted && !registrationForm.get('email')?.valid"
+        [class.is-invalid]="isSubmitted && !email?.valid"
         placeholder="Enter your email"
       />
-      <div class="invalid-feedback" *ngIf="isSubmitted && !registrationForm.get('email')?.valid">
+      <div class="invalid-feedback" *ngIf="isSubmitted && !email?.valid">
         {{ getFieldError('email') }}
       </div>
     </div>
@@ -69,15 +70,16 @@
         id="password"
         name="password"
         [(ngModel)]="user.password"
+        #password="ngModel"
         required
         minlength="6"
-        [class.is-invalid]="isSubmitted && !registrationForm.get('password')?.valid"
+        [class.is-invalid]="isSubmitted && !password?.valid"
         placeholder="Minimum 6 characters"
       />
       <small class="form-text text-muted d-block mt-1">
         Password must be at least 6 characters long
       </small>
-      <div class="invalid-feedback" *ngIf="isSubmitted && !registrationForm.get('password')?.valid">
+      <div class="invalid-feedback" *ngIf="isSubmitted && !password?.valid">
         {{ getFieldError('password') }}
       </div>
     </div>
@@ -97,6 +99,7 @@
           name="gender"
           value="Male"
           [(ngModel)]="user.gender"
+          #gender="ngModel"
           required
         />
         <label class="form-check-label" for="male">Male</label>
@@ -125,7 +128,7 @@
         />
         <label class="form-check-label" for="other">Other</label>
       </div>
-      <div class="invalid-feedback" *ngIf="isSubmitted && !registrationForm.get('gender')?.valid">
+      <div class="invalid-feedback" *ngIf="isSubmitted && !gender?.valid">
         Please select a gender
       </div>
     </div>
@@ -170,15 +173,16 @@
         id="country"
         name="country"
         [(ngModel)]="user.country"
+        #country="ngModel"
         required
-        [class.is-invalid]="isSubmitted && !registrationForm.get('country')?.valid"
+        [class.is-invalid]="isSubmitted && !country?.valid"
       >
         <option value="" disabled selected>Select a country</option>
         <option *ngFor="let country of countries" [value]="country">
           {{ country }}
         </option>
       </select>
-      <div class="invalid-feedback" *ngIf="isSubmitted && !registrationForm.get('country')?.valid">
+      <div class="invalid-feedback" *ngIf="isSubmitted && !country?.valid">
         Please select a country
       </div>
     </div>
@@ -195,12 +199,13 @@
         id="terms"
         name="terms"
         [(ngModel)]="user.termsAccepted"
+        #terms="ngModel"
         required
       />
       <label class="form-check-label" for="terms">
         I accept the Terms & Conditions *
       </label>
-      <div class="invalid-feedback" *ngIf="isSubmitted && !registrationForm.get('terms')?.valid">
+      <div class="invalid-feedback" *ngIf="isSubmitted && !terms?.valid">
         You must accept the terms and conditions
       </div>
     </div>

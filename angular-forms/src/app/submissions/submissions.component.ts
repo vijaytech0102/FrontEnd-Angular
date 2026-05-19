@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormStorageService } from '../../shared/services/form.service';
 import { SubmittedFormData } from '../../shared/models/form.model';
@@ -14,14 +14,14 @@ import { SubmittedFormData } from '../../shared/models/form.model';
   imports: [CommonModule],
   templateUrl: './submissions.component.html',
   styleUrl: './submissions.component.css',
+  providers: [FormStorageService]
 })
 export class SubmissionsComponent implements OnInit {
   submissions: SubmittedFormData[] = [];
   filteredSubmissions: SubmittedFormData[] = [];
   selectedFilter: 'all' | 'template-driven' | 'reactive' = 'all';
   expandedIndex: number | null = null;
-
-  constructor(private formStorageService: FormStorageService) {}
+  private formStorageService = inject(FormStorageService);
 
   ngOnInit(): void {
     this.loadSubmissions();

@@ -185,6 +185,7 @@ export class EmployeeService {
           createdBy: 'current-user',
           updatedBy: 'current-user',
           isActive: true,
+          employmentHistory: [],
         };
 
         // Add to employees list

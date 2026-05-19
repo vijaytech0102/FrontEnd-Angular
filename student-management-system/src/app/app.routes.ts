@@ -9,6 +9,8 @@ import { DynamicFormComponent } from './component/form-exercises/dynamic-form/dy
 import { PasswordValidatorComponent } from './component/form-exercises/password-validator/password-validator.component';
 import { MultiStepFormComponent } from './component/form-exercises/multi-step-form/multi-step-form.component';
 import { TemplateComponent } from './component/template/template.component';
+import { TemplateExampleComponent } from './component/template-example/template-example.component';
+import { ReactiveExampleComponent } from './component/reactive-example/reactive-example.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -23,5 +25,7 @@ export const routes: Routes = [
   { path: 'forms/password-validator', component: PasswordValidatorComponent },
   { path: 'forms/multi-step', component: MultiStepFormComponent },
   {path:'template', component: TemplateComponent},
+  {path:'template-example', component:TemplateExampleComponent},
+  {path:'reactive-example',component:ReactiveExampleComponent},
   { path: '**', redirectTo: '/home' }
 ];

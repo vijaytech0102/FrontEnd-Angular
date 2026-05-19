@@ -1,0 +1,55 @@
+<form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+
+  <h2>Template Driven Form</h2>
+
+  <!-- Email -->
+  <div>
+
+    <label>Email</label>
+
+    <input
+      type="email"
+      name="email"
+      [(ngModel)]="user.email"
+      required
+      email
+      #email="ngModel"
+      placeholder="Enter Email"
+    >
+
+    @if (email.invalid && email.touched) {
+
+      <small>Valid email is required</small>
+
+    }
+
+  </div>
+
+  <!-- Password -->
+  <div>
+
+    <label>Password</label>
+
+    <input
+      type="password"
+      name="password"
+      [(ngModel)]="user.password"
+      required
+      minlength="6"
+      #password="ngModel"
+      placeholder="Enter Password"
+    >
+
+    @if (password.invalid && password.touched) {
+
+      <small>Password must be at least 6 characters</small>
+
+    }
+
+  </div>
+
+  <button [disabled]="loginForm.invalid">
+    Login
+  </button>
+
+</form>

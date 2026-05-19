@@ -1,0 +1,84 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+  <h2>Reactive Form</h2>
+
+  <!-- Name -->
+  <div>
+
+    <label>Name</label>
+
+    <input
+      type="text"
+      formControlName="name"
+      placeholder="Enter Name"
+    >
+
+    @if (f['name'].touched && f['name'].errors?.['required']) {
+
+      <small>Name is required and atleat three characters</small>
+
+    }
+    @if (this.registerForm.controls.name.touched) {
+
+      <small>Name is required</small>
+
+    }
+
+
+    @if (f['name'].errors?.['minlength']) {
+
+      <small>Minimum 3 characters required</small>
+
+    }
+
+  </div>
+
+  <!-- Email -->
+  <div>
+
+    <label>Email</label>
+
+    <input
+      type="email"
+      formControlName="email"
+      placeholder="Enter Email"
+    >
+
+    @if (f['email'].touched && f['email'].errors?.['required']) {
+
+      <small>Email is required</small>
+
+    }
+
+    @if (f['email'].errors?.['email']) {
+
+      <small>Invalid email format</small>
+
+    }
+
+  </div>
+
+  <!-- Password -->
+  <div>
+
+    <label>Password</label>
+
+    <input
+      type="password"
+      formControlName="password"
+      placeholder="Enter Password"
+    >
+
+    @if (f['password'].errors?.['minlength']) {
+
+      <small>Password must be at least 6 characters</small>
+
+    }
+
+  </div>
+
+  <button [disabled]="registerForm.invalid">
+    Register
+  </button>
+
+</form>

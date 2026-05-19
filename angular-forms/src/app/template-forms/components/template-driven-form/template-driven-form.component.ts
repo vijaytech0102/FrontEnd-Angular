@@ -83,7 +83,7 @@ export class TemplateDrivenFormComponent implements OnInit {
 
     // Check if form is valid
     // Form validation is automatic through ngForm directive
-    if (!this.form.valid) {
+    if (!this.form?.valid) {
       this.notificationService.error('Please fill out all required fields correctly');
       return;
     }
@@ -96,7 +96,7 @@ export class TemplateDrivenFormComponent implements OnInit {
       this.formStorageService.saveFormSubmission(
         'template-driven',
         this.user,
-        this.form.valid
+        this.form?.valid ?? false
       );
 
       this.submittedData = { ...this.user };
@@ -184,7 +184,7 @@ export class TemplateDrivenFormComponent implements OnInit {
    * Used in template to show specific validation error messages
    */
   getFieldError(fieldName: string): string {
-    const field = (this.form?.get(fieldName) as any);
+    const field = this.form?.controls?.[fieldName];
 
     if (!field || !field.errors || !this.isSubmitted) {
       return '';

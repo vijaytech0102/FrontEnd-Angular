@@ -52,7 +52,7 @@
           </h5>
         </div>
         <div class="card-body">
-          <form [formGroup]="employeeForm.get('personalInfo') as FormGroup">
+          <form [formGroup]="$any(employeeForm.get('personalInfo'))">
             <div class="row">
               <!-- First Name -->
               <div class="col-md-6 mb-3">
@@ -249,7 +249,7 @@
           </h5>
         </div>
         <div class="card-body">
-          <form [formGroup]="employeeForm.get('employmentDetails') as FormGroup">
+          <form [formGroup]="$any(employeeForm.get('employmentDetails'))">
             <div class="row">
               <!-- Employee ID -->
               <div class="col-md-6 mb-3">
@@ -449,7 +449,7 @@
                   </button>
                 </div>
               </div>
-              <div class="card-body" [formGroup]="address as FormGroup">
+              <div class="card-body" [formGroup]="$any(address)">
                 <div class="row">
                   <div class="col-md-12 mb-3">
                     <label class="form-label"
@@ -582,7 +582,7 @@
                   </button>
                 </div>
               </div>
-              <div class="card-body" [formGroup]="contact as FormGroup">
+              <div class="card-body" [formGroup]="$any(contact)">
                 <div class="row">
                   <div class="col-md-6 mb-3">
                     <label class="form-label"
@@ -667,7 +667,7 @@
                   </button>
                 </div>
               </div>
-              <div class="card-body" [formGroup]="education as FormGroup">
+              <div class="card-body" [formGroup]="$any(education)">
                 <div class="row">
                   <div class="col-md-6 mb-3">
                     <label class="form-label"
@@ -773,7 +773,7 @@
                   </button>
                 </div>
               </div>
-              <div class="card-body" [formGroup]="skill as FormGroup">
+              <div class="card-body" [formGroup]="$any(skill)">
                 <div class="row">
                   <div class="col-md-4 mb-3">
                     <label class="form-label"
@@ -862,7 +862,7 @@
                   </button>
                 </div>
               </div>
-              <div class="card-body" [formGroup]="cert as FormGroup">
+              <div class="card-body" [formGroup]="$any(cert)">
                 <div class="row">
                   <div class="col-md-6 mb-3">
                     <label class="form-label"
@@ -932,7 +932,7 @@
           </h5>
         </div>
         <div class="card-body">
-          <form [formGroup]="employeeForm.get('salaryInfo') as FormGroup">
+          <form [formGroup]="$any(employeeForm.get('salaryInfo'))">
             <div class="row">
               <div class="col-md-4 mb-3">
                 <label class="form-label"
@@ -991,13 +991,13 @@
                   <i class="bi bi-plus"></i> Add Benefit
                 </button>
               </div>
-              <div [formArray]="benefitsArray">
+              <ng-container>
                 <div *ngFor="let benefit of benefitsArray.controls; let i = index" class="mb-2">
                   <div class="input-group">
                     <input
                       type="text"
                       class="form-control"
-                      [formControl]="benefit"
+                      [formControl]="$any(benefit)"
                       placeholder="e.g., Health Insurance"
                     />
                     <button
@@ -1009,7 +1009,7 @@
                     </button>
                   </div>
                 </div>
-              </div>
+              </ng-container>
             </div>
           </form>
         </div>
@@ -1023,7 +1023,7 @@
           </h5>
         </div>
         <div class="card-body">
-          <form [formGroup]="employeeForm.get('consents') as FormGroup">
+          <form [formGroup]="$any(employeeForm.get('consents'))">
             <div class="form-check mb-3">
               <input
                 class="form-check-input"
