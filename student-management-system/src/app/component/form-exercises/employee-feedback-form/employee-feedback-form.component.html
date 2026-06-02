@@ -1,0 +1,109 @@
+<div class="container">
+  <h2>Employee Feedback Form</h2>
+
+  <form (ngSubmit)="onSubmit()" #feedbackForm="ngForm" class="form">
+    <!-- Employee Name Field -->
+    <div class="form-group">
+      <label for="employeeName">Employee Name</label>
+      <input
+        type="text"
+        id="employeeName"
+        name="employeeName"
+        [(ngModel)]="feedback.employeeName"
+        #employeeName="ngModel"
+        required
+        class="form-control"
+      />
+      <small class="error" *ngIf="employeeName.invalid && employeeName.touched">
+        Employee name is required
+      </small>
+    </div>
+
+    <!-- Department Field -->
+    <div class="form-group">
+      <label for="department">Department</label>
+      <select
+        id="department"
+        name="department"
+        [(ngModel)]="feedback.department"
+        #department="ngModel"
+        required
+        class="form-control"
+      >
+        <option value="">Select Department</option>
+        <option *ngFor="let dept of departments" [value]="dept">{{ dept }}</option>
+      </select>
+      <small class="error" *ngIf="department.invalid && department.touched">
+        Department is required
+      </small>
+    </div>
+
+    <!-- Rating Field -->
+    <div class="form-group">
+      <label for="rating">Rating</label>
+      <select
+        id="rating"
+        name="rating"
+        [(ngModel)]="feedback.rating"
+        #rating="ngModel"
+        required
+        class="form-control"
+      >
+        <option value="">Select Rating</option>
+        <option value="5">Excellent</option>
+        <option value="4">Good</option>
+        <option value="3">Average</option>
+        <option value="2">Poor</option>
+        <option value="1">Very Poor</option>
+      </select>
+      <small class="error" *ngIf="rating.invalid && rating.touched">
+        Rating is required
+      </small>
+    </div>
+
+    <!-- Feedback Field -->
+    <div class="form-group">
+      <label for="feedbackText">Feedback</label>
+      <textarea
+        id="feedbackText"
+        name="feedbackText"
+        [(ngModel)]="feedback.feedbackText"
+        #feedbackText="ngModel"
+        required
+        minlength="20"
+        class="form-control"
+        rows="5"
+      ></textarea>
+      <small class="error" *ngIf="feedbackText.invalid && feedbackText.touched">
+        <span *ngIf="feedbackText.errors?.['required']">Feedback is required</span>
+        <span *ngIf="feedbackText.errors?.['minlength']">
+          Feedback must be at least 20 characters
+        </span>
+      </small>
+      <small class="char-count">{{ feedbackText.value?.length || 0 }} / 20 characters minimum</small>
+    </div>
+
+    <!-- Submit and Reset Buttons -->
+    <div class="button-group">
+      <button
+        type="submit"
+        [disabled]="!feedbackForm.valid"
+        class="btn btn-submit"
+      >
+        Submit
+      </button>
+      <button
+        type="button"
+        (click)="onReset()"
+        class="btn btn-reset"
+      >
+        Reset
+      </button>
+    </div>
+  </form>
+
+  <!-- Success Message -->
+  <div class="success-message" *ngIf="submitted">
+    <p>Thank you! Your feedback has been submitted successfully. Form will be reset...</p>
+  </div>
+</div>

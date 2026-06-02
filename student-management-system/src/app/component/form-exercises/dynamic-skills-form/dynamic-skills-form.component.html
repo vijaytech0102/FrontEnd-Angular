@@ -1,0 +1,84 @@
+<div class="container">
+  <h2>Dynamic Skills Form</h2>
+
+  <form [formGroup]="skillsForm" (ngSubmit)="onSubmit()" class="form">
+    <!-- Name Field -->
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input
+        type="text"
+        id="name"
+        formControlName="name"
+        class="form-control"
+      />
+      <small class="error" *ngIf="skillsForm.get('name')?.invalid && skillsForm.get('name')?.touched">
+        Name is required
+      </small>
+    </div>
+
+    <!-- Skills Array -->
+    <div class="skills-section">
+      <label class="label">Skills</label>
+      <div formArrayName="skills">
+        <div *ngFor="let skill of skills.controls; let i = index" class="skill-item">
+          <input
+            type="text"
+            [formControlName]="i"
+            class="form-control"
+            placeholder="Enter a skill"
+          />
+          <small class="error" *ngIf="skills.at(i)?.invalid && skills.at(i)?.touched">
+            Skill is required
+          </small>
+          <button
+            type="button"
+            (click)="removeSkill(i)"
+            [disabled]="skills.length === 1"
+            class="btn btn-remove"
+          >
+            Remove
+          </button>
+        </div>
+      </div>
+
+      <small class="error" *ngIf="skills.invalid && skills.touched">
+        At least 1 skill is required
+      </small>
+
+      <!-- Add Skill Button -->
+      <button
+        type="button"
+        (click)="addSkill()"
+        class="btn btn-add"
+      >
+        + Add Skill
+      </button>
+    </div>
+
+    <!-- Submit and Reset Buttons -->
+    <div class="button-group">
+      <button
+        type="submit"
+        [disabled]="!skillsForm.valid"
+        class="btn btn-submit"
+      >
+        Submit
+      </button>
+      <button
+        type="button"
+        (click)="onReset()"
+        class="btn btn-reset"
+      >
+        Reset
+      </button>
+    </div>
+  </form>
+
+  <!-- Success Message -->
+  <div class="success-message" *ngIf="submitted && skillsForm.valid">
+    <h3>{{ skillsForm.get('name')?.value }}'s Skills</h3>
+    <ul>
+      <li *ngFor="let skill of skills.value">{{ skill }}</li>
+    </ul>
+  </div>
+</div>

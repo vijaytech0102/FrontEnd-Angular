@@ -147,6 +147,27 @@
   border-left-color: #3498db;
 }
 
+.dropdown-header {
+  display: block;
+  padding: 0.8rem 1.5rem;
+  font-weight: 600;
+  color: #3498db;
+  cursor: default;
+  font-size: 0.9rem;
+}
+
+.dropdown-header:hover {
+  background-color: transparent;
+  border-left-color: transparent;
+  padding-left: 1.5rem;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background-color: #2c3e50;
+  margin: 0.3rem 0;
+}
+
 @media (max-width: 1024px) {
   .nav-links {
     gap: 1rem;

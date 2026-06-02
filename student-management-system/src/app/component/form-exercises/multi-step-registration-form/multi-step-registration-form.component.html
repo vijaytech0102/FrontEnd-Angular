@@ -1,0 +1,204 @@
+<div class="container">
+  <h2>Multi-Step Registration Form</h2>
+
+  <!-- Progress Bar -->
+  <div class="progress-bar">
+    <div class="step" [class.active]="currentStep === 1" [class.completed]="currentStep > 1">
+      <div class="step-number">1</div>
+      <div class="step-title">Personal</div>
+    </div>
+    <div class="step" [class.active]="currentStep === 2" [class.completed]="currentStep > 2">
+      <div class="step-number">2</div>
+      <div class="step-title">Address</div>
+    </div>
+    <div class="step" [class.active]="currentStep === 3" [class.completed]="currentStep > 3">
+      <div class="step-number">3</div>
+      <div class="step-title">Account</div>
+    </div>
+  </div>
+
+  <!-- Step 1: Personal Details -->
+  <form [formGroup]="step1Form" class="form" *ngIf="currentStep === 1">
+    <h3>Step 1: Personal Details</h3>
+
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input
+        type="text"
+        id="firstName"
+        formControlName="firstName"
+        class="form-control"
+      />
+      <small class="error" *ngIf="step1Form.get('firstName')?.invalid && step1Form.get('firstName')?.touched">
+        First name is required
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="lastName">Last Name</label>
+      <input
+        type="text"
+        id="lastName"
+        formControlName="lastName"
+        class="form-control"
+      />
+      <small class="error" *ngIf="step1Form.get('lastName')?.invalid && step1Form.get('lastName')?.touched">
+        Last name is required
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        class="form-control"
+      />
+      <small class="error" *ngIf="step1Form.get('email')?.invalid && step1Form.get('email')?.touched">
+        <span *ngIf="step1Form.get('email')?.errors?.['required']">Email is required</span>
+        <span *ngIf="step1Form.get('email')?.errors?.['email']">Invalid email format</span>
+      </small>
+    </div>
+  </form>
+
+  <!-- Step 2: Address -->
+  <form [formGroup]="step2Form" class="form" *ngIf="currentStep === 2">
+    <h3>Step 2: Address</h3>
+
+    <div class="form-group">
+      <label for="street">Street</label>
+      <input
+        type="text"
+        id="street"
+        formControlName="street"
+        class="form-control"
+      />
+      <small class="error" *ngIf="step2Form.get('street')?.invalid && step2Form.get('street')?.touched">
+        Street is required
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="city">City</label>
+      <input
+        type="text"
+        id="city"
+        formControlName="city"
+        class="form-control"
+      />
+      <small class="error" *ngIf="step2Form.get('city')?.invalid && step2Form.get('city')?.touched">
+        City is required
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="zipCode">Zip Code</label>
+      <input
+        type="text"
+        id="zipCode"
+        formControlName="zipCode"
+        class="form-control"
+      />
+      <small class="error" *ngIf="step2Form.get('zipCode')?.invalid && step2Form.get('zipCode')?.touched">
+        Zip code is required
+      </small>
+    </div>
+  </form>
+
+  <!-- Step 3: Account Details -->
+  <form [formGroup]="step3Form" class="form" *ngIf="currentStep === 3">
+    <h3>Step 3: Account Details</h3>
+
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input
+        type="text"
+        id="username"
+        formControlName="username"
+        class="form-control"
+      />
+      <small class="error" *ngIf="step3Form.get('username')?.invalid && step3Form.get('username')?.touched">
+        Username is required
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        formControlName="password"
+        class="form-control"
+      />
+      <small class="error" *ngIf="step3Form.get('password')?.invalid && step3Form.get('password')?.touched">
+        <span *ngIf="step3Form.get('password')?.errors?.['required']">Password is required</span>
+        <span *ngIf="step3Form.get('password')?.errors?.['minlength']">Password must be at least 6 characters</span>
+      </small>
+    </div>
+  </form>
+
+  <!-- Navigation Buttons -->
+  <div class="button-group">
+    <button
+      type="button"
+      (click)="previousStep()"
+      [disabled]="currentStep === 1"
+      class="btn btn-back"
+    >
+      Back
+    </button>
+
+    <button
+      type="button"
+      (click)="nextStep()"
+      [disabled]="
+        (currentStep === 1 && !step1Form.valid) ||
+        (currentStep === 2 && !step2Form.valid) ||
+        currentStep === 3
+      "
+      class="btn btn-next"
+      *ngIf="currentStep < 3"
+    >
+      Next
+    </button>
+
+    <button
+      type="button"
+      (click)="onSubmit()"
+      [disabled]="!step3Form.valid"
+      class="btn btn-submit"
+      *ngIf="currentStep === 3"
+    >
+      Submit
+    </button>
+
+    <button
+      type="button"
+      (click)="onReset()"
+      class="btn btn-reset"
+    >
+      Reset
+    </button>
+  </div>
+
+  <!-- Success Message -->
+  <div class="success-message" *ngIf="submitted">
+    <h3>Registration Successful!</h3>
+    <div class="data-section">
+      <h4>Personal Details</h4>
+      <p><strong>Name:</strong> {{ allData.personalDetails.firstName }} {{ allData.personalDetails.lastName }}</p>
+      <p><strong>Email:</strong> {{ allData.personalDetails.email }}</p>
+    </div>
+    <div class="data-section">
+      <h4>Address</h4>
+      <p><strong>Street:</strong> {{ allData.address.street }}</p>
+      <p><strong>City:</strong> {{ allData.address.city }}</p>
+      <p><strong>Zip Code:</strong> {{ allData.address.zipCode }}</p>
+    </div>
+    <div class="data-section">
+      <h4>Account Details</h4>
+      <p><strong>Username:</strong> {{ allData.accountDetails.username }}</p>
+    </div>
+  </div>
+</div>

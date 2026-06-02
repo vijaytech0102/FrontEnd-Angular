@@ -1,0 +1,36 @@
+<section class="validator-card">
+  <h2>Custom Validator</h2>
+  
+  <form [formGroup]="customForm" (ngSubmit)="onSubmit()" novalidate>
+    <!-- Username field with built-in and custom validation -->
+    <div class="field" [class.invalid]="username.touched && username.invalid">
+      <label for="username">Username</label>
+      <input id="username" type="text" formControlName="username" placeholder="Enter username" />
+
+      <!-- Display validation messages when the control has been touched -->
+      <div class="error" *ngIf="username.touched && username.invalid">
+        <div *ngIf="username.errors?.['required']">Username is required.</div>
+        <div *ngIf="username.errors?.['minlength']">Username must be at least 3 characters.</div>
+        <div *ngIf="username.errors?.['forbiddenUsername']">"{{ username.errors?.['forbiddenUsername'].value }}" is not allowed.</div>
+      </div>
+    </div>
+
+    <!-- Mobile number field with custom validator -->
+    <div class="field" [class.invalid]="mobile.touched && mobile.invalid">
+      <label for="mobile">Mobile Number</label>
+      <input id="mobile" type="text" formControlName="mobile" placeholder="Enter 10-digit number" />
+
+      <div class="error" *ngIf="mobile.touched && mobile.invalid">
+        <div *ngIf="mobile.errors?.['required']">Mobile number is required.</div>
+        <div *ngIf="mobile.errors?.['invalidMobile']">Enter a valid 10-digit mobile number.</div>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="customForm.invalid">Submit</button>
+  </form>
+
+  <div class="result" *ngIf="submitted">
+    <strong>Form is valid!</strong>
+    <pre>{{ customForm.value | json }}</pre>
+  </div>
+</section>

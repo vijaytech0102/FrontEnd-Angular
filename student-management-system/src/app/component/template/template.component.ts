@@ -22,9 +22,9 @@ export class TemplateComponent {
   
   formData: NgForm=this.user;  
 
-  onSubmit() {
+  onSubmit(form:NgForm) {
     // Handle form submission logic here
-    console.log('Form submitted!');
+    console.log('Form submitted!', form.value);
   }
   mobileValidator(mobile: string): boolean {
     const mobileRegex = /^\d{10}$/; 

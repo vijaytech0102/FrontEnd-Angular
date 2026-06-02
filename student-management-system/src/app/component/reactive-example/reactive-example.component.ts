@@ -31,7 +31,9 @@ export class ReactiveExampleComponent {
     password: ['', [
       Validators.required,
       Validators.minLength(6),
-      Validators.maxLength(24)
+      Validators.maxLength(24),
+      
+
     ]]
 
   });

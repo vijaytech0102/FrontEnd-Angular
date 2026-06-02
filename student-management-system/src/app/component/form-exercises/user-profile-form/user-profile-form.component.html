@@ -1,0 +1,123 @@
+<div class="container">
+  <h2>User Profile Form</h2>
+
+  <div class="content-wrapper">
+    <!-- Form Section -->
+    <div class="form-section">
+      <form (ngSubmit)="onSubmit()" #profileForm="ngForm" class="form">
+        <!-- First Name Field -->
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input
+            type="text"
+            id="firstName"
+            name="firstName"
+            [(ngModel)]="profile.firstName"
+            #firstName="ngModel"
+            required
+            class="form-control"
+          />
+          <small class="error" *ngIf="firstName.invalid && firstName.touched">
+            First name is required
+          </small>
+        </div>
+
+        <!-- Last Name Field -->
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            [(ngModel)]="profile.lastName"
+            #lastName="ngModel"
+            required
+            class="form-control"
+          />
+          <small class="error" *ngIf="lastName.invalid && lastName.touched">
+            Last name is required
+          </small>
+        </div>
+
+        <!-- Phone Field -->
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            [(ngModel)]="profile.phone"
+            #phone="ngModel"
+            required
+            pattern="^\d{10}$"
+            class="form-control"
+            placeholder="1234567890"
+          />
+          <small class="error" *ngIf="phone.invalid && phone.touched">
+            <span *ngIf="phone.errors?.['required']">Phone number is required</span>
+            <span *ngIf="phone.errors?.['pattern']">Phone must be exactly 10 digits</span>
+          </small>
+        </div>
+
+        <!-- Address Field -->
+        <div class="form-group">
+          <label for="address">Address</label>
+          <textarea
+            id="address"
+            name="address"
+            [(ngModel)]="profile.address"
+            #address="ngModel"
+            required
+            class="form-control"
+            rows="4"
+          ></textarea>
+          <small class="error" *ngIf="address.invalid && address.touched">
+            Address is required
+          </small>
+        </div>
+
+        <!-- Submit and Reset Buttons -->
+        <div class="button-group">
+          <button
+            type="submit"
+            [disabled]="!profileForm.valid"
+            class="btn btn-submit"
+          >
+            Submit
+          </button>
+          <button
+            type="button"
+            (click)="onReset()"
+            class="btn btn-reset"
+          >
+            Reset
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Live Preview Section -->
+    <div class="preview-section">
+      <h3>Live Preview</h3>
+      <div class="preview-card">
+        <div class="preview-field">
+          <strong>Full Name:</strong>
+          <p>{{ fullName || 'Enter your name' }}</p>
+        </div>
+        <div class="preview-field">
+          <strong>Phone:</strong>
+          <p>{{ profile.phone || 'Enter your phone' }}</p>
+        </div>
+        <div class="preview-field">
+          <strong>Address:</strong>
+          <p>{{ profile.address || 'Enter your address' }}</p>
+        </div>
+      </div>
+
+      <!-- Success Message -->
+      <div class="success-message" *ngIf="submitted && profileForm.valid">
+        <p>Profile saved successfully!</p>
+      </div>
+    </div>
+  </div>
+</div>

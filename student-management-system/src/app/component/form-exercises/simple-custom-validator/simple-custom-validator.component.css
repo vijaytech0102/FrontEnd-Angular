@@ -1,0 +1,69 @@
+.validator-card {
+  max-width: 520px;
+  margin: 1.5rem auto;
+  padding: 1.2rem 1.4rem;
+  border: 1px solid #d3d3d3;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.validator-card h2 {
+  margin-bottom: 0.5rem;
+}
+
+.validator-card p {
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+.field {
+  margin-bottom: 1rem;
+}
+
+.field.invalid input {
+  border-color: #d93025;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-weight: 600;
+}
+
+input {
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid #c2c2c2;
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.error {
+  margin-top: 0.5rem;
+  color: #d93025;
+  font-size: 0.92rem;
+}
+
+button {
+  padding: 0.7rem 1.15rem;
+  border: none;
+  border-radius: 7px;
+  background: #0d6efd;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.result {
+  margin-top: 1rem;
+  padding: 0.9rem;
+  border-radius: 8px;
+  background: #f4f9ff;
+  border: 1px solid #cdd7ea;
+}
