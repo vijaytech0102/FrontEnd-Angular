@@ -1,0 +1,71 @@
+<div class="container">
+  <h2>{{ isEditMode ? 'Edit Employee' : 'Add Employee' }}</h2>
+
+  <div *ngIf="errorMessage" class="alert alert-error">{{ errorMessage }}</div>
+  <div *ngIf="loading" class="loading">Loading...</div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="!loading">
+    <div class="form-group">
+      <label>First Name</label>
+      <input formControlName="firstName" type="text" placeholder="First Name" />
+      <span class="error" *ngIf="f['firstName'].touched && f['firstName'].errors?.['required']">
+        First name is required.
+      </span>
+      <span class="error" *ngIf="f['firstName'].touched && f['firstName'].errors?.['minlength']">
+        Minimum 2 characters.
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label>Last Name</label>
+      <input formControlName="lastName" type="text" placeholder="Last Name" />
+      <span class="error" *ngIf="f['lastName'].touched && f['lastName'].errors?.['required']">
+        Last name is required.
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input formControlName="email" type="email" placeholder="email@example.com" />
+      <span class="error" *ngIf="f['email'].touched && f['email'].errors?.['required']">
+        Email is required.
+      </span>
+      <span class="error" *ngIf="f['email'].touched && f['email'].errors?.['email']">
+        Invalid email format.
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label>Department</label>
+      <select formControlName="department">
+        <option value="">-- Select Department --</option>
+        <option value="Engineering">Engineering</option>
+        <option value="HR">HR</option>
+        <option value="Finance">Finance</option>
+        <option value="Marketing">Marketing</option>
+        <option value="Operations">Operations</option>
+      </select>
+      <span class="error" *ngIf="f['department'].touched && f['department'].errors?.['required']">
+        Department is required.
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label>Salary</label>
+      <input formControlName="salary" type="number" placeholder="50000" />
+      <span class="error" *ngIf="f['salary'].touched && f['salary'].errors?.['required']">
+        Salary is required.
+      </span>
+      <span class="error" *ngIf="f['salary'].touched && f['salary'].errors?.['min']">
+        Salary must be positive.
+      </span>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+        {{ isEditMode ? 'Update' : 'Save' }}
+      </button>
+      <a routerLink="/" class="btn btn-secondary">Cancel</a>
+    </div>
+  </form>
+</div>

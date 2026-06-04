@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="header">
+    <h2>Employee List</h2>
+    <a routerLink="/add" class="btn btn-primary">+ Add Employee</a>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-error">{{ errorMessage }}</div>
+  <div *ngIf="loading" class="loading">Loading...</div>
+
+  <table *ngIf="!loading && employees.length > 0">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Department</th>
+        <th>Salary</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let emp of employees">
+        <td>{{ emp.id }}</td>
+        <td>{{ emp.firstName }}</td>
+        <td>{{ emp.lastName }}</td>
+        <td>{{ emp.email }}</td>
+        <td>{{ emp.department }}</td>
+        <td>{{ emp.salary | number:'1.2-2' }}</td>
+        <td class="actions">
+          <button class="btn btn-edit" (click)="editEmployee(emp.id!)">Edit</button>
+          <button class="btn btn-delete" (click)="deleteEmployee(emp.id!)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="!loading && employees.length === 0" class="no-data">
+    No employees found. <a routerLink="/add">Add one!</a>
+  </p>
+</div>

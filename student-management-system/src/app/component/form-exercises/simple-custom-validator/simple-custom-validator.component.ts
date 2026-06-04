@@ -54,6 +54,7 @@ export class SimpleCustomValidatorComponent {
 // Custom validator factory: blocks usernames that match the provided pattern
 export function forbiddenUsernameValidator(forbiddenName: RegExp): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
+   
     if (!control.value) {
       return null; // Do not validate empty values here; required validator handles that
     }
